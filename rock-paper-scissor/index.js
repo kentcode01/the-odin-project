@@ -37,7 +37,7 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
-function game(target, rounddResults) {
+function game(target) {
     
     choice = target.id;
     playerSelection = choice.toUpperCase();
@@ -68,7 +68,7 @@ roundResult.setAttribute('style', 'white-space: pre;');
 buttons.addEventListener('click', (e) => {
     let target = e.target;
 
-    game(target, roundResult);
+    game(target);
     if(rounds == 5) {
         
         if(wins == losses) roundResult.textContent += `The game is a TIE`;
