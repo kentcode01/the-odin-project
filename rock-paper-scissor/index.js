@@ -70,12 +70,14 @@ buttons.addEventListener('click', (e) => {
 
     game(target, roundResult);
     if(rounds == 5) {
+        
         if(wins == losses) roundResult.textContent += `The game is a TIE`;
         else if(wins > losses) roundResult.textContent += `Player Wins.`;
         else roundResult.textContent += `Computer Wins.`;
         wins = 0;
         losses = 0;
         rounds = 0;
+
     }
 });
 
