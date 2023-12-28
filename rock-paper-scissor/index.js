@@ -1,3 +1,6 @@
+wins = 0;
+losses = 0;
+rounds = 0;
 
 function getComputerChoice() {
     const hands = [`rock`, `paper`, `scissor`];
@@ -6,14 +9,8 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toUpperCase();
-    computerSelection = computerSelection.toUpperCase();
-
-
-
-    console.log(`You chose ${playerSelection}`);
-
-    if(playerSelection == computerSelection) {
+    
+    if(playerSelection === computerSelection) {
         return `You both chose ${playerSelection}. Its a TIE.`
     } 
     else if(playerSelection == `ROCK`) {
@@ -30,7 +27,7 @@ function playRound(playerSelection, computerSelection) {
             return `You Win! PAPER beats ROCK`;
         }
     } else {
-        // if playerSelection is SCISSOR
+        
         if(computerSelection == `ROCK`) {
             return `You Lose! ROCK beats SCISSOR`;
         } else {
@@ -40,30 +37,47 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
-function game(choice, results) {
-    // console.log(`this is my ${choice}`);
-    wins = 0;
-    losses = 0;
+function game(target, rounddResults) {
+    
+    choice = target.id;
+    playerSelection = choice.toUpperCase();
+    computerSelection = getComputerChoice().toUpperCase();
 
-    // choice = String(prompt(`Your choice: `));
-    result = playRound(choice, getComputerChoice());
-    console.log(result);
+    roundResult.textContent = `Your choice: ${playerSelection} \n`;
+    roundResult.textContent += `CPU choice: ${computerSelection} \n`;
+    
+    result = playRound(playerSelection, computerSelection);
+    roundResult.textContent += `${result} \n`;
+
     if(result.includes(`Lose`)) {
         losses += 1;
     } else if(result.includes(`Win`)) {
         wins += 1;
-        }
-    // 
-    console.log(`${wins} wins and ${losses} losses.`);
-    if(wins == losses) return `The game is a TIE`;
-    else if(wins > losses) return `Player Wins.`;
-    else return `Computer Wins.`;
+    }
+    
+    rounds += 1;
+    roundResult.textContent += `${wins} wins and ${losses} losses. \n`;
+    results.appendChild(roundResult);
 }
 
 let buttons = document.getElementById('buttons');
-choice = "";
+let results = document.getElementById('results');
+let roundResult = document.createElement('p');
+roundResult.setAttribute('style', 'white-space: pre;');
+
 buttons.addEventListener('click', (e) => {
-    choice = String(e.target.id);
-    let results = document.getElementById('results');
-    game(choice, results);
+    let target = e.target;
+
+    game(target, roundResult);
+    if(rounds == 5) {
+        if(wins == losses) roundResult.textContent += `The game is a TIE`;
+        else if(wins > losses) roundResult.textContent += `Player Wins.`;
+        else roundResult.textContent += `Computer Wins.`;
+        wins = 0;
+        losses = 0;
+        rounds = 0;
+    }
 });
+
+
+    
