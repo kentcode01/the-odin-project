@@ -66,6 +66,7 @@ let roundResult = document.createElement('p');
 roundResult.setAttribute('style', 'white-space: pre;');
 
 buttons.addEventListener('click', (e) => {
+
     let target = e.target;
 
     game(target, roundResult);
@@ -77,6 +78,7 @@ buttons.addEventListener('click', (e) => {
         losses = 0;
         rounds = 0;
     }
+    
 });
 
 
