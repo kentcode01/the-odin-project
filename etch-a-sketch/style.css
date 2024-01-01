@@ -1,0 +1,14 @@
+.squareSet {
+    display: flex;
+    flex-wrap: wrap;    
+    justify-content: center; 
+    width: 100%;
+    height: auto;
+}
+
+.square {
+    min-width: 1px;
+    height: auto;
+    padding: 2px;
+}
+
