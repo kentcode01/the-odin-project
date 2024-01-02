@@ -1,13 +1,17 @@
-.squareSet {
+.grid {
     display: flex;
-    flex-wrap: wrap;    
     justify-content: center; 
     width: 100%;
     height: auto;
 }
 
+.squareSet {
+    display: block;
+}
+
 .square {
-    min-width: 1px;
+    display: flex;
+    min-width: 0.5px;
     height: auto;
     padding: 2px;
 }
