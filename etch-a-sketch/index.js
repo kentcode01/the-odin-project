@@ -27,19 +27,13 @@ function createGrid(x, y) {
                 e.target.style.backgroundColor = `black`;
             });
             squareSet.appendChild(div);
-
         }
-
         grid.appendChild(squareSet)
-
     }
-
 }
 
-createGrid(16, 16);
-
-newGrid.addEventListener(`click`, () => {  
-    let sides = prompt(`Enter grid size. (e.g: 10 for 10x10 grid)`)
+function getUserInput(sides) {
+    
     if(sides === null) return;
     else if(isNaN(sides) == true) {
         alert(`Enter an number.`);
@@ -53,5 +47,25 @@ newGrid.addEventListener(`click`, () => {
             createGrid(sides, sides);
         }
     }
+    input.value = ``;
+}
+
+createGrid(16, 16);
+
+let input = document.getElementById(`gridInput`);
+let button = document.getElementById(`alertButton`);
+
+button.addEventListener(`click`, (e) => {
+    let sides = input.value;
+    getUserInput(sides);
 })
+
+input.addEventListener(`keydown`, (e) => {
+    if(e.key === `Enter`) {
+        let sides = input.value;
+        getUserInput(sides);
+    }
+})
+
+
 
