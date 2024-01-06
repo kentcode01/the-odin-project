@@ -1,3 +1,6 @@
+body {
+    background-color: #FFC533;
+}
 
 #board {
     display: flex;
@@ -14,10 +17,10 @@
 
 #grid {
     display: inline-block;
-    min-width: 960px;
-    min-height: 960px; 
-    max-width: 960px;
-    max-height: 960px;
+    min-width: 600px;
+    min-height: 600px; 
+    max-width: 600px;
+    max-height: 600px;
 }
 
 .squareSet {

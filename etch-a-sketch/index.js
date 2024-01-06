@@ -22,7 +22,7 @@ function createGrid(x, y) {
             div.setAttribute(`id`, `square` + j);
             div.style.width = width + `px`;
             div.style.height = width + `px`;
-            div.style.border = `thin solid black`;
+            div.style.border = `thin solid orange`;
             div.addEventListener(`mouseover`, (e) => {
                 e.target.style.backgroundColor = `black`;
             });
