@@ -26,7 +26,12 @@ body {
 
 #gridInput {
     width: 100px;
-    
+}
+
+#reset {
+    margin: 40px;
+    width: 100px;
+    height: 40px;
 }
 
 .squareSet {

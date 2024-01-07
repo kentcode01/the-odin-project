@@ -50,10 +50,14 @@ function getUserInput(sides) {
     input.value = ``;
 }
 
+
+
 createGrid(16, 16);
 
 let input = document.getElementById(`gridInput`);
 let button = document.getElementById(`alertButton`);
+let reset = document.getElementById(`reset`);
+let squares = document.getElementsByClassName(`square`);
 
 button.addEventListener(`click`, (e) => {
     let sides = input.value;
@@ -64,6 +68,12 @@ input.addEventListener(`keydown`, (e) => {
     if(e.key === `Enter`) {
         let sides = input.value;
         getUserInput(sides);
+    }
+})
+
+reset.addEventListener(`click`, () => {
+    for(var i = 0; i < squares.length; i++) {
+        squares[i].style.removeProperty(`background-color`);
     }
 })
 
