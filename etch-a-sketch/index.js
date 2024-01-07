@@ -2,7 +2,7 @@ let board = document.getElementById(`board`);
 let grid = document.getElementById(`grid`); 
 let newGrid = document.getElementById(`alertButton`);
 let maxWidth = document.getElementById(`grid`).offsetWidth;
-
+let randomize = false;
 
 function createGrid(x, y) {
     
@@ -24,11 +24,20 @@ function createGrid(x, y) {
             div.style.height = width + `px`;
             div.style.border = `thin solid orange`;
             div.addEventListener(`mouseover`, (e) => {
-                e.target.style.backgroundColor = `black`;
+                if(randomize === false) {
+                    e.target.style.backgroundColor = `black`;
+                } else {
+                    let a = Math.floor(Math.random() * 256);
+                    let b = Math.floor(Math.random() * 256);
+                    let c = Math.floor(Math.random() * 256);
+
+                    let color = `rgb(${a},${b},${c})`;
+                    e.target.style.backgroundColor = color;
+                }
             });
             squareSet.appendChild(div);
         }
-        grid.appendChild(squareSet)
+        grid.appendChild(squareSet);
     }
 }
 
@@ -50,14 +59,13 @@ function getUserInput(sides) {
     input.value = ``;
 }
 
-
-
 createGrid(16, 16);
 
 let input = document.getElementById(`gridInput`);
 let button = document.getElementById(`alertButton`);
 let reset = document.getElementById(`reset`);
 let squares = document.getElementsByClassName(`square`);
+let random = document.getElementById(`random`);
 
 button.addEventListener(`click`, (e) => {
     let sides = input.value;
@@ -75,6 +83,10 @@ reset.addEventListener(`click`, () => {
     for(var i = 0; i < squares.length; i++) {
         squares[i].style.removeProperty(`background-color`);
     }
+})
+
+random.addEventListener(`click`, () => {
+    randomize = !randomize;
 })
 
 

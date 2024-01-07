@@ -2,7 +2,6 @@ body {
     display: flex;
     justify-content: center;
     background-color: #FFC533;
-    
 }
 
 #board {
@@ -28,10 +27,15 @@ body {
     width: 100px;
 }
 
-#reset {
+.buttons {
+    display: flex;
     margin: 40px;
     width: 100px;
     height: 40px;
+}
+
+#random {
+    margin-right: 20px;
 }
 
 .squareSet {
