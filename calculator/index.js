@@ -1,6 +1,9 @@
+let screen = document.getElementById(`screen`);
+let digits = document.getElementsByTagName(`button`);
 
 let a = ``, b = ``, operator = ``;
 let operation = false;
+let focusA = true;
 
 function add(a, b) {
     return a + b;
@@ -31,60 +34,54 @@ function operate(a, b, operator) {
     } else if(operator === `/`) {
         calc = divide(a, b);
     }
-    console.log(calc);
     return calc;
 } 
 
-function equals(a, b, operator) {
-    return operate(a, b, operator);
-}
-
-let screen = document.getElementById(`screen`);
-
-let digits = document.getElementsByTagName(`button`);
-for(let i = 0; i < digits.length; i++) {
-    digits[i].addEventListener(`click`, (e) => {
-        
-        if(e.target.parentElement.className === `digits`) {
-        
-            if(operation === false) {
-                a += digits[i].textContent;
-                console.log('a:' + a);
-                screen.textContent = a;
-            } else {
-                b += digits[i].textContent;
-                console.log('b:' + b);
-                screen.textContent = b;
-            }
-
+function keypress(e, i) {
+    if(e.target.parentElement.className === `digits`) {
+        if(focusA === true) {
+            a += digits[i].textContent;
+            screen.textContent = a;
+        } else {
+            b += digits[i].textContent;
+            screen.textContent = b;
         }
-        else if(e.target.parentElement.className === `operators`) {
-            
-            console.log(digits[i].textContent);
+    }
+    else if(e.target.parentElement.className === `operators`) {          
+        if(b !== `` && operator !== ``) {
+            a = operate(a, b, operator);
+            operator = digits[i].textContent;
+            b = ``;
+        } else {
+            focusA = false;
             operator = digits[i].textContent;
             operation = true;
-
         }
+    }
 
-        if(e.target.className === `equals`) {
-            
-            screen.textContent = operate(a, b, operator);
-            a = screen.textContent;
-            b = ``;
-            operator = ``;
-            operation = false;
+    if(e.target.className === `equals`) {      
+        screen.textContent = operate(a, b, operator);
+        a = screen.textContent;
+        b = ``;
+        operator = ``;
+        focusA = true;   
+    }
 
-        }
+    if(e.target.className === `clear`) {      
+        screen.textContent = `0`;
+        a = ``;
+        b = ``;
+        operator = ``;
+        focusA = true;   
+    }
 
-        if(e.target.className === `clear`) {
-            
-            screen.textContent = `0`;
-            a = ``;
-            b = ``;
-            operator = ``;
-            operation = false;
-            
-        }
-
-    })
 }
+
+for(let i = 0; i < digits.length; i++) {
+    digits[i].addEventListener(`click`, (e) => {
+        keypress(e, i);
+    });
+}
+
+
+
