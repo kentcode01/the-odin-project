@@ -18,7 +18,16 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    if(b == `0`) {
+        
+        a = ``;
+        b = ``;
+        operator = ``;
+        focusA = true; 
+    } else {
+        return a / b;
+    }
+    
 }
 
 function operate(a, b, operator) {
@@ -47,16 +56,24 @@ function keypress(e, i) {
             screen.textContent = b;
         }
     }
-    else if(e.target.parentElement.className === `operators`) {          
-        if(b !== `` && operator !== ``) {
-            a = operate(a, b, operator);
+    else if(e.target.parentElement.className === `operators`) { 
+        if(operation === true) {
+            operator = ``;
             operator = digits[i].textContent;
-            b = ``;
+            operation = false;
         } else {
-            focusA = false;
-            operator = digits[i].textContent;
+            if(b !== `` && operator !== ``) {
+                a = operate(a, b, operator);
+                operator = digits[i].textContent;
+                b = ``;
+            } else {
+                focusA = false;
+                operator = digits[i].textContent;
+                
+            }
             operation = true;
-        }
+        }      
+            
     }
 
     if(e.target.className === `equals`) {      
@@ -68,13 +85,17 @@ function keypress(e, i) {
     }
 
     if(e.target.className === `clear`) {      
-        screen.textContent = `0`;
-        a = ``;
-        b = ``;
-        operator = ``;
-        focusA = true;   
+        clear();
     }
 
+}
+
+function clear() {
+    screen.textContent = `0`;
+    a = ``;
+    b = ``;
+    operator = ``;
+    focusA = true; 
 }
 
 for(let i = 0; i < digits.length; i++) {
