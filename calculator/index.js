@@ -18,15 +18,8 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    if(b == `0`) {
-        
-        a = ``;
-        b = ``;
-        operator = ``;
-        focusA = true; 
-    } else {
-        return a / b;
-    }
+    
+    return a / b;
     
 }
 
@@ -56,37 +49,31 @@ function keypress(e, i) {
             screen.textContent = b;
         }
     }
-    else if(e.target.parentElement.className === `operators`) { 
-        if(operation === true) {
-            operator = ``;
+    else if (e.target.parentElement.className === `operators`) { 
+        
+        if(b !== `` && operator !== ``) {
+            a = operate(a, b, operator);
             operator = digits[i].textContent;
-            operation = false;
+            b = ``;
         } else {
-            if(b !== `` && operator !== ``) {
-                a = operate(a, b, operator);
-                operator = digits[i].textContent;
-                b = ``;
-            } else {
-                focusA = false;
-                operator = digits[i].textContent;
-                
-            }
-            operation = true;
-        }      
+            focusA = false;
+            operator = digits[i].textContent;
             
-    }
-
-    if(e.target.className === `equals`) {      
+        }
+        operation = true;
+        
+            
+    } else if (e.target.className === `equals`) {      
         screen.textContent = operate(a, b, operator);
         a = screen.textContent;
         b = ``;
         operator = ``;
         focusA = true;   
-    }
-
-    if(e.target.className === `clear`) {      
+    } else if (e.target.className === `clear`) {      
         clear();
     }
+
+    console.log(`a: ${a}, b: ${b}, operator: ${operator}, focusA: ${focusA}, operation: ${operation}`)
 
 }
 
@@ -96,6 +83,7 @@ function clear() {
     b = ``;
     operator = ``;
     focusA = true; 
+    operation = false;
 }
 
 for(let i = 0; i < digits.length; i++) {
@@ -103,6 +91,5 @@ for(let i = 0; i < digits.length; i++) {
         keypress(e, i);
     });
 }
-
 
 
