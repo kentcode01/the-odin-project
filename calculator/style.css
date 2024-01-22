@@ -1,14 +1,45 @@
 body {
     text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    font-size: 30px;
+    width: 75px;
+    height: 75px;
+    margin-bottom: 5px;
 }
 
 .calculator {
+    background-color: #77D1EA;
+    padding: 10px;
+}
+
+.buttons {
     display: flex;
-    
+}
+
+.numbers {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.operators {
+    display: flex;
     flex-direction: column;
 }
 
 #display {
-    font-size: 40px;
+    font-size: 60px;
+    text-align: right;
 }
 
+#screen {
+    background-color: #C8D1D5;
+    margin-bottom: 10px;
+}
+
+#clear {
+    width: 235px;
+}

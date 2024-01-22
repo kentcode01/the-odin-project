@@ -4,6 +4,7 @@ let a = ``, b = ``, operator = ``;
 let operation = false;
 let focusA = true;
 let decimalUse = false;
+let lock = false;
 
 function add(a, b) {
     return a + b;
@@ -46,30 +47,8 @@ function operate(a, b, operator) {
 } 
 
 function keypress(e, i) {
-    if(e.target.parentElement.className === `digits`) {
-        if(focusA === true) {
-            if(a.length < 9) {
-                a += digits[i].textContent;
-            }
-            screen.textContent = a;
-        } else {
-            if(b.length < 9) {
-                b += digits[i].textContent;
-            }
-            
-            screen.textContent = b;
-        }
-    }
-    else if (e.target.parentElement.className === `operators`) { 
-        if(digits[i].textContent === `+/-`) {
-            if(focusA === true && a === ``) {
-                a += `-`;
-                screen.textContent = `-`;
-            } else if(focusA === false && b === ``) {
-                b += `-`;
-                screen.textContent = `-`;
-            }      
-        } else if(digits[i].textContent === `.`) {
+    if(e.target.parentElement.className === `numbers`) {
+        if(e.target.id === `decimal`) {
             if(decimalUse === false) {
                 if(focusA === true && a !== `` && a !== `-`) {
                     a += `.`;
@@ -80,9 +59,72 @@ function keypress(e, i) {
                     screen.textContent = b;
                     decimalUse = true;
                 } 
-                
             }
+        } else if(e.target.id === `negative`) {
+            if(focusA === true && a === ``) {
+                a += `-`;
+                screen.textContent = `-`;
+            } else if((focusA === true && a.length > 0) || lock == true) {
+                if(a.charAt(0) === `-`) {
+                    a = a.substring(1);
+                } else {
+                    a = `-` + a;
+                }
+                screen.textContent = a;
+            } else if(focusA === false && b === ``) {
+                b += `-`;
+                screen.textContent = `-`;
+            } else if(focusA === false && b.length > 0) {
+                if(b.charAt(0) === `-`) {
+                    b = b.substring(1);
+                } else {
+                    b = `-` + b;
+                }
+                screen.textContent = b;
+            }
+        }else if(e.target.id === `clear`) {
+                clear();
         } else {
+            if(focusA === true) {
+                if(a.length < 9) {
+                    a += digits[i].textContent;
+                }
+                screen.textContent = a;
+            } else {
+                if(lock === false) {
+                    if(b.length < 9) {
+                        b += digits[i].textContent;
+                    }
+                    screen.textContent = b;
+                }
+                    
+            }
+        }
+            
+    }
+    else if (e.target.parentElement.className === `operators`) { 
+        if (e.target.id === `equals`) {  
+            let temp = operate(a, b, operator);
+            if(String(temp).length > 9) {
+                if(isDecimal(temp) === true) {
+                    temp = String(temp).substring(0, 9);
+                } else {
+                    let arr = String(temp).substring(0, 9).split(``);
+                    arr.splice(1, 0 , '.');
+                    temp = arr.join(``);
+                }
+                if(temp.charAt(temp.length - 1) === `.`) {
+                    temp = temp.substring(0, temp.charAt(temp.length - 1));
+                }
+            }   
+            screen.textContent = temp;
+            a = screen.textContent;
+            b = ``;
+            operator = ``;
+            focusA = false;
+            lock = true;   
+        } else {
+            lock = false;
             if(b !== `` && operator !== ``) {
                 a = operate(a, b, operator);              
                 operator = digits[i].textContent;
@@ -92,32 +134,9 @@ function keypress(e, i) {
                 operator = digits[i].textContent;
             }
             operation = true;
-            decimalUse = false;
+            decimalUse = false; 
         }
-            
-        
-            
-    } else if (e.target.className === `equals`) {  
-        let temp =  operate(a, b, operator);
-        if(String(temp).length > 9) {
-            if(isDecimal(temp)) {
-                temp = String(temp).substring(0, 8);
-            } else {
-                temp = String(temp).substring(0, 8).split(``).splice(1, 1, `.`).join(``);
-            }
-        }   
-        screen.textContent = temp;
-        a = screen.textContent;
-        b = ``;
-        operator = ``;
-        focusA = true;   
-    } else if (e.target.className === `clear`) {      
-        clear();
-    }
-   
-
-    // console.log(`a: ${a}, b: ${b}, operator: ${operator}, focusA: ${focusA}, operation: ${operation}`)
-
+    } 
 }
 
 function clear() {
@@ -128,17 +147,16 @@ function clear() {
     focusA = true; 
     operation = false;
     decimalUse = false;
+    lock = false;
 }
 
 for(let i = 0; i < digits.length; i++) {
     digits[i].addEventListener(`click`, (e) => {
         keypress(e, i);
-
-        if(a === `Infinity`) {
+        
+        if(a === `Infinity` || a === `-Infinity`) {
             a = `ERROR`;
             screen.textContent = a;
         }
     });
 }
-
-
