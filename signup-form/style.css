@@ -3,25 +3,30 @@ body {
     flex-wrap: wrap;
     flex: 1 0 auto;
     margin: 0;
+    width: 100vw;
+    height: 100vh;
+    
 }
 
 #img-div {
     display: flex;
-    flex: 1 0 auto;
-    max-width: 40%;
-    height: 100vh;
+    max-width: 60%;
+}
+
+#wallpaper {
+    width: 100%;
+    height: auto;
 }
 
 #form-section {
     display: flex;
-    
     flex-direction: column;
     background-color: white;
-    height: 100vh;
+    min-width: 40%;
 }
 
 #form-field, #intro, #submit-btn {
-    padding: 5rem;
+    padding: 3.5rem;
 }
 
 #form-field > div:nth-child(n + 1) > div:nth-child(n + 1) {
@@ -33,5 +38,8 @@ body {
 #submit-btn > button { 
     width: 12rem;
     height: 4rem;
+    background-color: rgb(192, 180, 12, 0.75);
+    border-width: 0.1rem;
+    border-radius: 5%;
 }
 
