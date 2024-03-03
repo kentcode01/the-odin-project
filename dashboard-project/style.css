@@ -118,6 +118,7 @@
     display: flex;
     align-items: center;
     text-align: start;
+    
 }
 
 
@@ -177,10 +178,14 @@
     border-radius: 5%;
 }
 
+.announcements hr {
+    margin: 1rem;
+}
+
 .trending li {
     display: flex;
     align-items: center;
-    
+    margin-bottom: 1rem;
 }
 
 .news-items img {
