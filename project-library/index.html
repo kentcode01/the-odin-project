@@ -4,9 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="style.css" rel="stylsheet" />
+    <link href="style.css" rel="stylesheet" />
 </head>
 <body>
+
+    <dialog id="dialog">
+        <form method="dialog">
+            <div>
+                <legend for="title">Title</legend>
+                <input id="title" type="text"/>
+            </div>
+            <div>
+                <legend for="author">Author</legend>
+                <input id="author" type="text" />
+            </div>
+            <div>
+                <legend for="pages">Page Number</legend>
+                <input id="pages" type="text">
+            </div>
+            <div>
+                <legend for="read">Read</legend>
+                <input id="read" type="checkbox" />
+            </div>
+            <input id="submit" type="submit" value="add book"></input>
+        </form>
+        
+        <button id="close">close</button>
+    </dialog>
+    <div id="book-list">
+        
+    </div>
+    <button id="show">Show Modal</button>
+    
+
+    </div>
+
+    
+    
     <script src="index.js"></script>
 </body>
 </html>
