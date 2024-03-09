@@ -9,10 +9,11 @@
 <body>
 
     <dialog id="dialog">
+        
         <form method="dialog">
             <div>
                 <legend for="title">Title</legend>
-                <input id="title" type="text"/>
+                <input id="title" type="text" />
             </div>
             <div>
                 <legend for="author">Author</legend>
@@ -26,20 +27,17 @@
                 <legend for="read">Read</legend>
                 <input id="read" type="checkbox" />
             </div>
-            <input id="submit" type="submit" value="add book"></input>
+            
+            <input id="submit" type="submit" value="Add Book"></input>
+            
         </form>
+        <button id="close">Close</button>
         
-        <button id="close">close</button>
     </dialog>
-    <div id="book-list">
-        
-    </div>
-    <button id="show">Show Modal</button>
-    
 
-    </div>
+    <button id="add"><b>+ Add Book</b></button>
 
-    
+    <div id="book-list"></div>
     
     <script src="index.js"></script>
 </body>

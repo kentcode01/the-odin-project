@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+#book-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid black;
+    padding: 2rem;
+}
+
+.book-div {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    width: 20rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    border: 2px solid black;
+}
+.book-div > p:first-child {
+    font-weight: bold;
+}
+
+dialog {
+    padding: 2rem;
+}
+
+form {
+    display: inline;
+}
+
+.remove, #submit, #close {
+    width: 5rem;
+    height: 2rem;
+    margin: 10px;
+}
+
+form > div:nth-of-type(n + 1) {
+    margin-bottom: 1rem;
+}
+
+#add {
+    font-size:larger;
+    width: 8rem;
+    margin: 3rem;
+    padding: 0.5rem;
+}
+
+
+
+
+
