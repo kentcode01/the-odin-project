@@ -99,11 +99,10 @@ function iterateLibrary() {
     }
 }
 
-
 myLibrary.push(new Book(`The Hobbit`, `J.R.R Tolkien`, 295, true))
 myLibrary.push(new Book(`Animal Farm`, `George Orwell`, 92, false));
 myLibrary.push(new Book(`Don Quixote`, `Miguel de Cervantes`, 1072, true));
-myLibrary.push(new Book(`INTRODUCTION TO OBJECT-ORIENTED PROGRAMMING IN JAVA`, `various`, 239, true))
+
 iterateLibrary();
 
 

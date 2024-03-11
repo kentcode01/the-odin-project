@@ -15,42 +15,44 @@ body {
     background-size: 50%;
 }
 
+
 #book-list {
-   
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     background-color: rgb(233, 233, 210, 0.8);
     border: 1px solid rgb(0, 0, 0);
     padding: 2rem;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .book-div {
     display: flex;
+    flex: 1 0 auto;
     flex-direction: column;
     justify-content: center;
     margin: 1rem;
+    padding: 0.5rem;
     min-height: 15rem;
-    min-width: 0;
     width: 9rem;
     text-align: center;
+    text-wrap: wrap;
     background-color: rgb(211, 183, 147, 0.95);
     border: 2px solid rgba(201, 166, 120, 0.65);
     border-left: 20px solid rgba(168, 144, 112, 0.65);
     border-top-right-radius: 3%;
     border-bottom-right-radius: 3%;
-    padding: 1rem;
 }
 
 .book-div > p:first-child {
     font-weight: bold;
 }
 
-.book-div > p {
-    word-wrap: break-word;
-}
-
 dialog {
+    position:absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 2rem;
 }
 
@@ -62,6 +64,12 @@ form {
     width: 5rem;
     height: 2rem;
     margin: 10px;
+}
+
+.remove {
+    font-weight: bold;
+    border-radius: 10%;
+    background-color: rgba(168, 144, 112, 0.65)
 }
 
 .remove-div {
