@@ -53,13 +53,13 @@ const Controller = (function(gameboard, player1, player2) {
     const playGame = (gameboard) => {
         let player = true;
     
-        let turns = 0;
+        let turns = 1;
     
-        while(turns < 9 || checkWin() === true) {
+        while(turns < 10 || checkWin(gameboard) === true) {
             console.log(`Turn ${turns}`)
             let option = prompt(`user choice: `);
             if(option === `Q`) {
-                clearGame(gameboard);
+                clearBoard(gameboard);
                 return;
             }
             if(gameboard[option] === ``) {
@@ -78,6 +78,10 @@ const Controller = (function(gameboard, player1, player2) {
                 return;
             }
         }   
+        console.log(`Tie Game`);
+        return;
+
+        
     }
     return {clearBoard, checkWin, playGame};
 })();
