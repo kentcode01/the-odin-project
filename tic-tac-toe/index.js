@@ -1,6 +1,3 @@
-// let game = [`X`, `O`, `X`, `X`, `X`, `O`, `O`, `X`, `X`];
-
-
 const Gameboard = (function() {
     const game = [``, ``, ``, ``, ``, ``, ``, ``, ``];
 
@@ -15,18 +12,19 @@ const Gameboard = (function() {
             }
         }
         console.log(gameString);
+        return gameString;
     }
 
-    return {printGrid};
+    return {game, printGrid};
 
 })();
 
 const Controller = (function(gameboard, player1, player2) {
-    const clearBoard = () => {
-        for(let i = 0; i < game.length; i++) {
-            game[i] = ``;
+    const clearBoard = (gameboard) => {
+        for(let i = 0; i < gameboard.length; i++) {
+            gameboard[i] = ``;
         }
-        return game;
+        return gameboard;
     };
 
     const checkWin = (gameboard) => {
@@ -40,9 +38,6 @@ const Controller = (function(gameboard, player1, player2) {
             [0, 4, 8],
             [2, 4, 6]
         ]
-          // 0 1 2 
-          // 3 4 5 
-          // 6 7 8 
     
         for(let i = 0; i < sets.length; i++) {
             let arr = sets[i];
@@ -51,11 +46,11 @@ const Controller = (function(gameboard, player1, player2) {
                 return true;
             }
         }
-        printGrid();
+        Gameboard.printGrid();
         return false;
     }
 
-    const playGame = () => {
+    const playGame = (gameboard) => {
         let player = true;
     
         let turns = 0;
@@ -64,38 +59,34 @@ const Controller = (function(gameboard, player1, player2) {
             console.log(`Turn ${turns}`)
             let option = prompt(`user choice: `);
             if(option === `Q`) {
-                clearGame();
+                clearGame(gameboard);
                 return;
             }
-            if(game[option] === ``) {
+            if(gameboard[option] === ``) {
                 if(player === true) {
-                    game[option] = `X`;
+                    gameboard[option] = `X`;
                 } else {
-                    game[option] = `O`;
+                    gameboard[option] = `O`;
                 }
                 turns++;
                 player = !player;
             }
-            if(checkWin() === true) {
-                printGrid();
+            if(checkWin(gameboard) === true) {
+                Gameboard.printGrid();
                 {player? console.log(`Player Wins`) : console.log(`CPU Wins`)};
-                clearGame();
+                clearBoard(gameboard);
                 return;
             }
-        }
-        
+        }   
     }
-
     return {clearBoard, checkWin, playGame};
-});
+})();
 
 function Player() {
     let win = false;
     let name = ``;
 }
 
-
-
-
-const board = new Gameboard();
-console.log(board);
+const board = Gameboard;
+const controller = Controller;
+controller.playGame(board.game);
