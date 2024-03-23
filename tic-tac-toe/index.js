@@ -6,7 +6,7 @@ const Gameboard = ((player) => {
     const createGrid = (player) => {
         const cells = document.getElementsByClassName(`cell`);
         for(let i = 0; i < 9; i++) {
-            cells[i].addEventListener(`click`, (e) => GameController.markCell(gameboard, player, e));
+            cells[i].addEventListener(`click`, (e) => GameController.markCell(Gameboard, player, e));
         }
         return boardDiv;
     }    
@@ -55,7 +55,6 @@ const GameController = ((gameboard, player) => {
     }
 
     const markCell = (gameboard, player, e) => {
-        e.preventDefault();
     
         if(checkWin(gameboard, player) === true) {
         
@@ -80,8 +79,11 @@ const GameController = ((gameboard, player) => {
 })();
 
 
-const DisplayController = ((gameboard, player) => {
+const DisplayController = (() => {
     
+    let player1 = new Player(`John`);
+    Gameboard.createGrid(player1);
+
     const printGrid = (gameboard) => {
         let i = 0;
         for (const cell of gameboard.boardDiv.children) {
@@ -103,6 +105,3 @@ function Player(userName) {
 }
 
 
-const gameboard = Gameboard;
-let player1 = new Player(`John`);
-Gameboard.createGrid(player1);
