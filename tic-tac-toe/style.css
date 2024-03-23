@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+#game-board {
+    display: grid;
+    
+    /* width: calc(100% / 2); */
+    grid-template-columns: 1fr 1fr 1fr;
+    /* grid-template-rows: auto; */
+    border: 1px solid black;
+}
+
+.cell {
+    border: 2px solid black;
+    width: 7.5rem;
+    height: 7.5rem;
+}

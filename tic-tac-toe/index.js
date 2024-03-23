@@ -1,33 +1,31 @@
-const Gameboard = (function() {
-    const game = [``, ``, ``, ``, ``, ``, ``, ``, ``];
 
-    const printGrid = () => {
-        let gameString = ``;
-        console.log(`GAME BOARD`)
-        console.log(game.length);
-        for(let i = 0; i < game.length; i++) {
-            gameString += (game[i] + `|`);
-            if((i + 1) % 3 === 0) {
-                gameString += `\n`;
-            }
+const Gameboard = ((player) => {
+    
+    const gameArr = [``, ``, ``, ``, ``, ``, ``, ``, ``];
+    const boardDiv = document.getElementById(`game-board`);
+    const createGrid = (player) => {
+        const cells = document.getElementsByClassName(`cell`);
+        for(let i = 0; i < 9; i++) {
+            cells[i].addEventListener(`click`, (e) => GameController.markCell(gameboard, player, e));
         }
-        console.log(gameString);
-        return gameString;
-    }
+        return boardDiv;
+    }    
 
-    return {game, printGrid};
+    return {gameArr, boardDiv, createGrid};
 
 })();
 
-const Controller = (function(gameboard, player1, player2) {
-    const clearBoard = (gameboard) => {
-        for(let i = 0; i < gameboard.length; i++) {
-            gameboard[i] = ``;
-        }
-        return gameboard;
-    };
 
-    const checkWin = (gameboard) => {
+const GameController = ((gameboard, player) => {
+
+
+    const clearBoard = (gameboard) => {
+        for(let i = 0; i < gameboard.gameArr.length; i++) {
+            gameboard.gameArr[i] = ``;
+        }
+    }
+
+    const checkWin = (gameboard, player) => {
         const sets = [
             [0, 1, 2],
             [3, 4, 5],
@@ -38,59 +36,73 @@ const Controller = (function(gameboard, player1, player2) {
             [0, 4, 8],
             [2, 4, 6]
         ]
-    
         for(let i = 0; i < sets.length; i++) {
             let arr = sets[i];
     
-            if(gameboard[arr[0]] && gameboard[arr[0]] === gameboard[arr[1]] && gameboard[arr[1]] === gameboard[arr[2]]) {
+            if(gameboard.gameArr[arr[0]] && gameboard.gameArr[arr[0]] === gameboard.gameArr[arr[1]] && gameboard.gameArr[arr[1]] === gameboard.gameArr[arr[2]]) {
+                if(player.turn === true) player.win = true;
                 return true;
             }
         }
-        Gameboard.printGrid();
         return false;
     }
 
-    const playGame = (gameboard) => {
-        let player = true;
-    
-        let turns = 1;
-    
-        while(turns < 10 || checkWin(gameboard) === true) {
-            console.log(`Turn ${turns}`)
-            let option = prompt(`user choice: `);
-            if(option === `Q`) {
-                clearBoard(gameboard);
-                return;
-            }
-            if(gameboard[option] === ``) {
-                if(player === true) {
-                    gameboard[option] = `X`;
-                } else {
-                    gameboard[option] = `O`;
-                }
-                turns++;
-                player = !player;
-            }
-            if(checkWin(gameboard) === true) {
-                Gameboard.printGrid();
-                {player? console.log(`Player Wins`) : console.log(`CPU Wins`)};
-                clearBoard(gameboard);
-                return;
-            }
-        }   
-        console.log(`Tie Game`);
-        return;
-
-        
+    const resetGame= (gameboard, player) => {
+        clearBoard(gameboard, player);
+        player.win = false;
+        player.turn = true;
+        DisplayController.printGrid(gameboard);
     }
-    return {clearBoard, checkWin, playGame};
+
+    const markCell = (gameboard, player, e) => {
+        e.preventDefault();
+    
+        if(checkWin(gameboard, player) === true) {
+        
+            DisplayController.printGrid(gameboard);
+            resetGame(gameboard, player);
+        } else {
+            if(e.target.textContent === `` || e.target.textContent === null) {
+                if(player.turn === true) {
+                    gameboard.gameArr[e.target.getAttribute(`key`)] = `X`;
+                } else {
+                    gameboard.gameArr[e.target.getAttribute(`key`)] = `O`;
+                }
+                player.turn = !player.turn;
+                DisplayController.printGrid(gameboard);
+            }
+        }
+
+    }
+    
+    return {clearBoard, checkWin, markCell, resetGame};
+
 })();
 
-function Player() {
+
+const DisplayController = ((gameboard, player) => {
+    
+    const printGrid = (gameboard) => {
+        let i = 0;
+        for (const cell of gameboard.boardDiv.children) {
+            cell.textContent = gameboard.gameArr[i];
+            i++;
+        }
+    }
+
+    return {printGrid};
+
+})();
+
+
+function Player(userName) {
     let win = false;
-    let name = ``;
+    let name = userName;
+    let turn = true;
+    return {win, name, turn};
 }
 
-const board = Gameboard;
-const controller = Controller;
-controller.playGame(board.game);
+
+const gameboard = Gameboard;
+let player1 = new Player(`John`);
+Gameboard.createGrid(player1);
