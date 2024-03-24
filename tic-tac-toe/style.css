@@ -12,7 +12,7 @@ body {
 
 
 #game-board {
-    display: grid;
+    display: none;
     
     /* width: calc(100% / 2); */
     grid-template-columns: 1fr 1fr 1fr;
@@ -24,4 +24,9 @@ body {
     border: 2px solid black;
     width: 7.5rem;
     height: 7.5rem;
+}
+
+.game-inputs {
+    display: flex;
+    flex-direction: column;
 }

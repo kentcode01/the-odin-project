@@ -18,6 +18,7 @@ const Gameboard = ((player) => {
 
 const GameController = ((gameboard, player) => {
 
+    const resultTxt = document.getElementById(`resultTxt`);
 
     const clearBoard = (gameboard) => {
         for(let i = 0; i < gameboard.gameArr.length; i++) {
@@ -40,7 +41,13 @@ const GameController = ((gameboard, player) => {
             let arr = sets[i];
     
             if(gameboard.gameArr[arr[0]] && gameboard.gameArr[arr[0]] === gameboard.gameArr[arr[1]] && gameboard.gameArr[arr[1]] === gameboard.gameArr[arr[2]]) {
-                if(player.turn === true) player.win = true;
+                if(player.turn === true) {
+                    player.win = true;
+                    resultTxt.textContent = `${player.name} Wins`
+                } else {
+                    resultTxt.textContent = `CPU Wins`;
+                }
+                    
                 return true;
             }
         }
@@ -51,25 +58,28 @@ const GameController = ((gameboard, player) => {
         clearBoard(gameboard, player);
         player.win = false;
         player.turn = true;
+        player.gameEnd = false;
         DisplayController.printGrid(gameboard);
     }
 
     const markCell = (gameboard, player, e) => {
-    
+        
+        if((e.target.textContent === `` || e.target.textContent === null) && player.gameEnd === false) {
+            if(player.turn === true) {
+                gameboard.gameArr[e.target.getAttribute(`key`)] = `X`;
+            } else {
+                gameboard.gameArr[e.target.getAttribute(`key`)] = `O`;
+            }
+            player.turn = !player.turn;
+            DisplayController.printGrid(gameboard);
+        }
+        
+
         if(checkWin(gameboard, player) === true) {
         
             DisplayController.printGrid(gameboard);
-            resetGame(gameboard, player);
-        } else {
-            if(e.target.textContent === `` || e.target.textContent === null) {
-                if(player.turn === true) {
-                    gameboard.gameArr[e.target.getAttribute(`key`)] = `X`;
-                } else {
-                    gameboard.gameArr[e.target.getAttribute(`key`)] = `O`;
-                }
-                player.turn = !player.turn;
-                DisplayController.printGrid(gameboard);
-            }
+            player.gameEnd = true;
+            
         }
 
     }
@@ -81,7 +91,20 @@ const GameController = ((gameboard, player) => {
 
 const DisplayController = (() => {
     
-    let player1 = new Player(`John`);
+    const player1 = Player();
+    const gameInputs = document.querySelector(`.game-inputs`);
+    const userInput = document.getElementById(`username`);
+    const startBtn = document.getElementById(`game-button`);
+    
+    
+    startBtn.addEventListener(`click`, () => {
+        if(Gameboard.boardDiv.style.display === ``) {
+            player1.name = userInput.value;
+            Gameboard.boardDiv.style.display = `grid`; 
+            gameInputs.style.display = `none`;
+        } 
+    })
+
     Gameboard.createGrid(player1);
 
     const printGrid = (gameboard) => {
@@ -97,11 +120,12 @@ const DisplayController = (() => {
 })();
 
 
-function Player(userName) {
+function Player(userName = ``) {
     let win = false;
     let name = userName;
     let turn = true;
-    return {win, name, turn};
+    let gameEnd = false;
+    return {win, name, turn, gameEnd};
 }
 
 
