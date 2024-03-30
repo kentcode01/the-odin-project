@@ -28,12 +28,14 @@ form.addEventListener(`submit`, (e) => {
     dialog.close();
 })
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.key = (title + pages).split(``).join(``);
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.key = (title + pages).split(``).join(``);
+    }
 }
 
 function addBookToLibrary(book) {
