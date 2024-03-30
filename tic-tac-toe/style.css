@@ -4,29 +4,88 @@
 }
 
 body {
+    --custom-color-one: rgb(98, 104, 192);
+    --custom-color-two: rgb(20, 20, 189);
+
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    background-color: rgba(42, 87, 81, 0.2);
 }
 
+input[type="text"] {
+    text-align: center;
+    height: 1.5rem;
+    margin-top: 2px;
+    font-weight:600;
+}
+
+input[type="button"] {
+    font-size: 1.25rem;
+    font-weight: 800;
+    width: 8rem;
+    height: 4rem;
+    border: rgb(142, 207, 207) solid 3px;
+    border-radius: 15%;
+    box-shadow: 2px 2px 2px 2px var(--custom-color-two);
+}
+
+input[type="button"]:active {
+    box-shadow: 3px 3px 3px 3px var(--custom-color-two);
+}
+
+input[type="button"]:hover {
+    background-color: rgb(174, 174, 212);
+}
+
+.game-inputs > input[type="button"] {
+    background-image: linear-gradient(rgba(36, 10, 184, 0.7), rgb(189, 130, 186));
+}
 
 #game-board {
     display: none;
-    
-    /* width: calc(100% / 2); */
     grid-template-columns: 1fr 1fr 1fr;
-    /* grid-template-rows: auto; */
     border: 1px solid black;
+    margin: 4rem 4rem 2rem 4rem;
+    background-color: var(--custom-color-one);
 }
 
 .cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 2px solid black;
     width: 7.5rem;
     height: 7.5rem;
+    font-size: 5rem;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
 }
 
 .game-inputs {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    margin: 5rem;
+}
+
+.game-inputs > input:nth-of-type(n + 1) {
+    margin-bottom: 1.5rem;
+}
+
+.end-option {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.end-option > div:nth-of-type(n + 1) {
+    margin: 1rem;
+}
+
+#result-text {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--custom-color-two);
 }

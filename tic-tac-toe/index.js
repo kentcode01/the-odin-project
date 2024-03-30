@@ -1,12 +1,12 @@
 
-const Gameboard = ((player) => {
+const Gameboard = (() => {
     
     const gameArr = [``, ``, ``, ``, ``, ``, ``, ``, ``];
     const boardDiv = document.getElementById(`game-board`);
-    const createGrid = (player) => {
+    const createGrid = () => {
         const cells = document.getElementsByClassName(`cell`);
         for(let i = 0; i < 9; i++) {
-            cells[i].addEventListener(`click`, (e) => GameController.markCell(Gameboard, player, e));
+            cells[i].addEventListener(`click`, (e) => GameController.markCell(e));
         }
         return boardDiv;
     }    
@@ -16,17 +16,24 @@ const Gameboard = ((player) => {
 })();
 
 
-const GameController = ((gameboard, player) => {
+const GameController = (() => {
+    let turn = 0;
+    const resultTxt = document.getElementById(`result-text`);
+    const endOption = document.querySelector(`.end-option`);
+    const refreshBtn = document.querySelector(`#refresh-button`);
 
-    const resultTxt = document.getElementById(`resultTxt`);
+    refreshBtn.addEventListener(`click`, () => {
+        resetGame()
+    });
 
-    const clearBoard = (gameboard) => {
-        for(let i = 0; i < gameboard.gameArr.length; i++) {
-            gameboard.gameArr[i] = ``;
+    const clearBoard = (gameArr) => {
+        for(let i = 0; i < Gameboard.gameArr.length; i++) {
+            gameArr[i] = ``;
         }
     }
 
-    const checkWin = (gameboard, player) => {
+    const checkWin = (gameArr) => {
+        if(Player.gameEnd === true) return false;
         const sets = [
             [0, 1, 2],
             [3, 4, 5],
@@ -40,77 +47,79 @@ const GameController = ((gameboard, player) => {
         for(let i = 0; i < sets.length; i++) {
             let arr = sets[i];
     
-            if(gameboard.gameArr[arr[0]] && gameboard.gameArr[arr[0]] === gameboard.gameArr[arr[1]] && gameboard.gameArr[arr[1]] === gameboard.gameArr[arr[2]]) {
-                if(player.turn === true) {
-                    player.win = true;
-                    resultTxt.textContent = `${player.name} Wins`
+            if(gameArr[arr[0]] && gameArr[arr[0]] === gameArr[arr[1]] && gameArr[arr[1]] === gameArr[arr[2]]) {
+                if(Player.turn === true) {
+                    Player.win = true;
+                    resultTxt.textContent = `- ${Player.name} Wins -`
                 } else {
-                    resultTxt.textContent = `CPU Wins`;
+                    resultTxt.textContent = `- CPU Wins -`;
                 }
-                    
+                Player.gameEnd = true;
                 return true;
             }
         }
+        if(turn === gameArr.length) {
+            resultTxt.textContent = `- Tie Game -`;
+        }
+            
         return false;
     }
 
-    const resetGame= (gameboard, player) => {
-        clearBoard(gameboard, player);
-        player.win = false;
-        player.turn = true;
-        player.gameEnd = false;
-        DisplayController.printGrid(gameboard);
+    const resetGame = () => {
+        clearBoard(Gameboard.gameArr);
+        Player.win = false;
+        Player.turn = true;
+        Player.gameEnd = false;
+        turn = 0;
+        endOption.style.display = ``;
+        DisplayController.printGrid();
     }
 
-    const markCell = (gameboard, player, e) => {
-        
-        if((e.target.textContent === `` || e.target.textContent === null) && player.gameEnd === false) {
-            if(player.turn === true) {
-                gameboard.gameArr[e.target.getAttribute(`key`)] = `X`;
+    const markCell = (e) => {
+        if((e.target.textContent === `` || e.target.textContent === null) && Player.gameEnd === false) {
+            if(Player.turn === true) {
+                Gameboard.gameArr[e.target.getAttribute(`key`)] = `X`;
             } else {
-                gameboard.gameArr[e.target.getAttribute(`key`)] = `O`;
+                Gameboard.gameArr[e.target.getAttribute(`key`)] = `O`;
             }
-            player.turn = !player.turn;
-            DisplayController.printGrid(gameboard);
+            Player.turn = !Player.turn;
+            turn = turn + 1;
+            DisplayController.printGrid();
         }
         
-
-        if(checkWin(gameboard, player) === true) {
-        
-            DisplayController.printGrid(gameboard);
-            player.gameEnd = true;
-            
+        if(checkWin(Gameboard.gameArr) === true) {
+            DisplayController.printGrid();
+            Player.gameEnd = true;
+            endOption.style.display = `flex`;
+        } else if(checkWin(Gameboard.gameArr) === false && turn === Gameboard.gameArr.length) {
+            endOption.style.display = `flex`;
         }
-
     }
-    
+
     return {clearBoard, checkWin, markCell, resetGame};
 
 })();
 
 
 const DisplayController = (() => {
-    
-    const player1 = Player();
     const gameInputs = document.querySelector(`.game-inputs`);
     const userInput = document.getElementById(`username`);
     const startBtn = document.getElementById(`game-button`);
     
-    
     startBtn.addEventListener(`click`, () => {
-        if(Gameboard.boardDiv.style.display === ``) {
-            player1.name = userInput.value;
+        if(Gameboard.boardDiv.style.display === `` && userInput.value != ``) {
+            Player.name = userInput.value;
             Gameboard.boardDiv.style.display = `grid`; 
             gameInputs.style.display = `none`;
         } 
     })
 
-    Gameboard.createGrid(player1);
+    Gameboard.createGrid();
 
-    const printGrid = (gameboard) => {
+    const printGrid = () => {
         let i = 0;
-        for (const cell of gameboard.boardDiv.children) {
-            cell.textContent = gameboard.gameArr[i];
+        for (const cell of Gameboard.boardDiv.children) {
+            cell.textContent = Gameboard.gameArr[i];
             i++;
         }
     }
@@ -120,12 +129,12 @@ const DisplayController = (() => {
 })();
 
 
-function Player(userName = ``) {
+const Player = (() => {
     let win = false;
-    let name = userName;
+    let name = ``;
     let turn = true;
     let gameEnd = false;
     return {win, name, turn, gameEnd};
-}
+})();
 
 
