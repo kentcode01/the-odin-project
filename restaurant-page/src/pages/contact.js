@@ -1,7 +1,7 @@
 import '../style.css';
 
 const contact = () => {
-    console.log(`In the contact module.`);
+    
     let contactPage = document.createElement(`div`);
     
     let contactDiv = document.createElement(`div`);
@@ -20,7 +20,7 @@ const contact = () => {
     contactDiv.appendChild(phoneHeader);
     contactDiv.appendChild(emailHeader);
 
-    contactDiv.classList.add('div-background');
+    contactDiv.classList.add('contact-div');
 
     return contactPage;
     

@@ -1,6 +1,7 @@
 import { home } from "./pages/home";
 import { menu } from "./pages/menu";
 import { contact } from "./pages/contact";
+import { footer } from "./components/footer";
 import './style.css';
 
 let contentDiv = document.querySelector(`#content`);
@@ -14,7 +15,7 @@ contentDiv.appendChild(home());
 document.body.classList.add('default');
 document.body.classList.add('home-background');
 navBar.classList.add('navbar');
-
+document.body.appendChild(footer());
 for(let i = 0; i < buttonList.length; i++) {
     buttonList[i].addEventListener(`click`, () => {
         while(contentDiv.firstChild) {
@@ -26,3 +27,4 @@ for(let i = 0; i < buttonList.length; i++) {
     buttonList[i].classList.add('button');
     buttonList[i].textContent = tabString[i];
 }
+
