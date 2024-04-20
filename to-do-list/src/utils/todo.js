@@ -1,12 +1,13 @@
 
 const todo = (title, description, dueDate, priority, notes) => {
+    priority = [];
     return {title, description, dueDate, priority, notes}
 }
 
 const createTodo = (title, description, dueDate, priority, notes) => {
 
     let todoObj = todo(title, description, dueDate, priority, notes);
-    
+
     let todoDiv = document.createElement(`div`);
     let titleHead = document.createElement(`h1`);
     let descriptPara = document.createElement(`p`);
