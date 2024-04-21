@@ -1,5 +1,6 @@
 import '../style.css';
 import { sidebar } from "../main/sidebar";
+import { sendTodo } from '../helper/jsonFunctions';
 
 const project = (title) => {
 
@@ -33,7 +34,8 @@ const addTodoTab = (projectName, todo) => {
 }
 
 const addToProj = (project, todo) => {
-    project.todos.push(todo);
+    // project.todos.push(todo);
+    sendTodo(project, todo);
     addTodoTab(project.title, todo);
 }
 
