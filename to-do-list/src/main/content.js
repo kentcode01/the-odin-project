@@ -1,6 +1,6 @@
 import '../style.css';
 import { project } from '../utils/project';
-import { todo, createTodoDivs } from '../utils/todo';
+import { todo, createTodoDivs, createTodoPrev } from '../utils/todo';
 
 const content = (() => {
     const contentDiv = document.createElement('div');
@@ -10,7 +10,7 @@ const content = (() => {
 
         let todoList = JSON.parse(localStorage.getItem(project.title)).todos;
         for(let t = 0; t < todoList.length; t++) {
-            let currDiv = createTodoDivs(todoList[t]);
+            let currDiv = createTodoPrev(todoList[t]);
             contentDiv.appendChild(currDiv);
         }
     }
