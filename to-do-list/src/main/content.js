@@ -7,7 +7,6 @@ const content = (() => {
     contentDiv.classList.add('content');
 
     const displayTodos = (project) => {
-        clearContentDiv();
 
         let todoList = JSON.parse(localStorage.getItem(project.title)).todos;
         for(let t = 0; t < todoList.length; t++) {
@@ -16,9 +15,12 @@ const content = (() => {
         }
     }
 
-    // const displayAllTodos = (project) => {
-
-    // }
+    const displayAllTodos = () => {
+        clearContentDiv();
+        for(let i = 0; i < localStorage.length; i++) {
+            displayTodos(JSON.parse(localStorage.getItem(localStorage.key(i))));
+        }
+    }
 
     const clearContentDiv = () => {
         while(contentDiv.firstChild) {
@@ -26,7 +28,7 @@ const content = (() => {
         }
     }
 
-    return {contentDiv, displayTodos, clearContentDiv};
+    return {contentDiv, displayTodos, displayAllTodos, clearContentDiv};
 })();
 
 export { content };

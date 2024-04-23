@@ -25,7 +25,11 @@ const createProjTab = (project) => {
     projDiv.classList.add('project-tab')
     projDiv.setAttribute('id', project.title);
 
-    projDiv.addEventListener('click', () => content.displayTodos(project));
+    projDiv.addEventListener('click', () => {
+        content.clearContentDiv();
+        content.displayTodos(project);
+    });
+    
 
     sidebar.sidebarNav.appendChild(projDiv);
 }
