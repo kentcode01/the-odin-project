@@ -4,16 +4,16 @@ const todo = (title, description, dueDate, priority, notes) => {
     return {title, description, dueDate, priority, notes}
 }
 
-const createTodo = (title, description, dueDate, priority, notes) => {
+const createTodoDivs = (todoItem) => {
 
-    let todoObj = todo(title, description, dueDate, priority, notes);
+    let todoObj = todo(todoItem.title, todoItem.description, todoItem.dueDate, todoItem.priority, todoItem.notes);
 
-    let todoDiv = document.createElement(`div`);
-    let titleHead = document.createElement(`h1`);
-    let descriptPara = document.createElement(`p`);
-    let dueDatePara = document.createElement(`p`);
-    let priorityInput = document.createElement(`input`);
-    let notePara = document.createElement(`p`);
+    let todoDiv = document.createElement('div');
+    let titleHead = document.createElement('h1');
+    let descriptPara = document.createElement('p');
+    let dueDatePara = document.createElement('p');
+    let priorityInput = document.createElement('input');
+    let notePara = document.createElement('p');
 
     titleHead.textContent = todoObj.title;
     descriptPara.textContent = todoObj.description;
@@ -27,6 +27,8 @@ const createTodo = (title, description, dueDate, priority, notes) => {
     todoDiv.appendChild(priorityInput);
     todoDiv.appendChild(notePara);
 
+    todoDiv.classList.add('todo-div');
+
     return todoDiv;
 }
 
@@ -34,4 +36,4 @@ const deleteTodo = (todo) => {
     
 }
 
-export {todo, createTodo, deleteTodo};
+export {todo, createTodoDivs, deleteTodo};

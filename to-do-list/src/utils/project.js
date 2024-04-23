@@ -1,6 +1,7 @@
 import '../style.css';
 import { sidebar } from "../main/sidebar";
 import { sendTodo } from '../helper/jsonFunctions';
+import { content } from '../main/content';
 
 const project = (title) => {
 
@@ -11,17 +12,21 @@ const project = (title) => {
 const createProj = (project) => {
     localStorage.setItem(project.title, JSON.stringify(project));
 
-    createProjTab(project.title);
+    createProjTab(project);
 }
 
-const createProjTab = (title) => {
+const createProjTab = (project) => {
+    
     let projDiv = document.createElement('div');
     let projHead = document.createElement('p');
     projDiv.appendChild(projHead);
-    projHead.textContent = title;
+    projHead.textContent = project.title;
     projHead.classList.add('proj-tab-head');
     projDiv.classList.add('project-tab')
-    projDiv.setAttribute('id', title);
+    projDiv.setAttribute('id', project.title);
+
+    projDiv.addEventListener('click', () => content.displayTodos(project));
+
     sidebar.sidebarNav.appendChild(projDiv);
 }
 
@@ -36,7 +41,7 @@ const addTodoTab = (projectName, todo) => {
 const addToProj = (project, todo) => {
     // project.todos.push(todo);
     sendTodo(project, todo);
-    addTodoTab(project.title, todo);
+    // addTodoTab(project.title, todo);
 }
 
 
