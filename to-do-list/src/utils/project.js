@@ -43,9 +43,13 @@ const addTodoTab = (projectName, todo) => {
 }
 
 const addToProj = (project, todo) => {
-    // project.todos.push(todo);
-    sendTodo(project, todo);
-    // addTodoTab(project.title, todo);
+    let proj = JSON.parse(localStorage.getItem(project.title));
+    proj.todos.push(todo);
+    localStorage.setItem(project.title, JSON.stringify(proj));
+}
+
+const allProject = () => {
+
 }
 
 

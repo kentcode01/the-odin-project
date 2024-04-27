@@ -10,7 +10,7 @@ const content = (() => {
 
         let todoList = JSON.parse(localStorage.getItem(project.title)).todos;
         for(let t = 0; t < todoList.length; t++) {
-            let currDiv = createTodoPrev(todoList[t]);
+            let currDiv = createTodoPrev(project, todoList[t]);
             contentDiv.appendChild(currDiv);
         }
     }

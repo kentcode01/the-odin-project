@@ -1,10 +1,11 @@
+import { content } from "../main/content";
 
 const todo = (title, description, dueDate, priority, notes, checked) => {
     priority = [];
     return {title, description, dueDate, priority, notes, checked}
 }
 
-const createTodoPrev = (todoItem) => {
+const createTodoPrev = (project, todoItem) => {
     let todoObj = todo(todoItem.title, todoItem.description, todoItem.dueDate, todoItem.priority, todoItem.notes);
 
     let markInput = document.createElement('input');
@@ -36,6 +37,9 @@ const createTodoPrev = (todoItem) => {
     todoDiv.appendChild(summaryDiv);
     todoDiv.appendChild(settingDiv);
     
+    deleteBtn.addEventListener('click', () => {
+        deleteTodo(project, todoItem);
+    });
 
     markInput.classList.add('checkbox');
     editBtn.classList.add('setting-btn');
@@ -50,7 +54,7 @@ const createTodoPrev = (todoItem) => {
     return todoDiv;
 }
 
-const createTodoDivs = (todoItem) => {
+const createTodoDivs = (project, todoItem) => {
 
     let todoObj = todo(todoItem.title, todoItem.description, todoItem.dueDate, todoItem.priority, todoItem.notes);
 
@@ -79,6 +83,24 @@ const createTodoDivs = (todoItem) => {
 }
 
 const deleteTodo = (project, todoItem) => {
+    let projArray = project.todos;
+
+    for(let i = 0; i < projArray.length; i++) {
+        if(JSON.stringify(projArray[i]) === JSON.stringify(todoItem)) {
+
+            projArray.splice(i,1);
+            let newVal = "{\"title\":".toString() + JSON.stringify(project.title) + "," + "\"todos\":" + JSON.stringify(projArray) + "}";
+            localStorage.setItem(project.title, newVal);
+            break;
+        }
+    }
+    content.clearContentDiv();
+    content.displayTodos(project);
+}
+
+
+
+const editTodo = (project, todoItem) => {
     
 }
 
