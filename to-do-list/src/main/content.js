@@ -6,13 +6,13 @@ const content = (() => {
     const contentDiv = document.createElement('div');
     contentDiv.classList.add('content');
 
-    const displayTodos = (project) => {
+    const displayTodos = (project, todoObj) => {
 
-        let todoList = JSON.parse(localStorage.getItem(project.title)).todos;
-        for(let t = 0; t < todoList.length; t++) {
-            let currDiv = createTodoPrev(project, todoList[t]);
-            contentDiv.appendChild(currDiv);
-        }
+        // let todoList = JSON.parse(localStorage.getItem(project.title)).todos;
+        // for(let t = 0; t < todoList.length; t++) {
+        let currDiv = createTodoPrev(project, todoObj);
+        contentDiv.appendChild(currDiv);
+        // }
     }
 
     const displayAllTodos = () => {
@@ -21,6 +21,8 @@ const content = (() => {
             displayTodos(JSON.parse(localStorage.getItem(localStorage.key(i))));
         }
     }
+
+  
 
     const clearContentDiv = () => {
         while(contentDiv.firstChild) {

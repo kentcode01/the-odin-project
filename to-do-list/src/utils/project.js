@@ -1,6 +1,6 @@
 import '../style.css';
 import { sidebar } from "../main/sidebar";
-import { sendTodo } from '../helper/jsonFunctions';
+import { addListeners, helpers } from '../helper/functions';
 import { content } from '../main/content';
 
 const project = (title) => {
@@ -25,11 +25,10 @@ const createProjTab = (project) => {
     projDiv.classList.add('project-tab')
     projDiv.setAttribute('id', project.title);
 
-    projDiv.addEventListener('click', () => {
-        content.clearContentDiv();
-        content.displayTodos(project);
-    });
-    
+    // projDiv.addEventListener('click', () => {
+    //     content.clearContentDiv();
+    //     content.displayTodos(project);
+    // });
 
     sidebar.sidebarNav.appendChild(projDiv);
 }
@@ -42,11 +41,20 @@ const addTodoTab = (projectName, todo) => {
     projTab.appendChild(taskDiv);
 }
 
-const addToProj = (project, todo) => {
+const addToProj = (project, todoObj) => {
+
     let proj = JSON.parse(localStorage.getItem(project.title));
-    proj.todos.push(todo);
+    proj.todos.push(todoObj);
     localStorage.setItem(project.title, JSON.stringify(proj));
+    
+    content.displayTodos(project, todoObj)
+
+
+    helpers.addDeleteListeners(JSON.parse(localStorage.getItem(project.title)), todoObj);
+    // helpers.addTodoPrevListeners(project, todo);
 }
+
+
 
 const allProject = () => {
 

@@ -37,9 +37,7 @@ const createTodoPrev = (project, todoItem) => {
     todoDiv.appendChild(summaryDiv);
     todoDiv.appendChild(settingDiv);
     
-    deleteBtn.addEventListener('click', () => {
-        deleteTodo(project, todoItem);
-    });
+    
 
     markInput.classList.add('checkbox');
     editBtn.classList.add('setting-btn');
@@ -50,6 +48,8 @@ const createTodoPrev = (project, todoItem) => {
     summaryDiv.classList.add('preview-div');
     settingDiv.classList.add('setting-div');
     todoDiv.classList.add('todo-prev-div');
+
+    todoDiv.setAttribute('id', todoItem.title);
 
     return todoDiv;
 }
@@ -83,7 +83,7 @@ const createTodoDivs = (project, todoItem) => {
 }
 
 const deleteTodo = (project, todoItem) => {
-    let projArray = project.todos;
+    let projArray = JSON.parse(localStorage.getItem(project.title)).todos;
 
     for(let i = 0; i < projArray.length; i++) {
         if(JSON.stringify(projArray[i]) === JSON.stringify(todoItem)) {
@@ -94,8 +94,8 @@ const deleteTodo = (project, todoItem) => {
             break;
         }
     }
-    content.clearContentDiv();
-    content.displayTodos(project);
+    // content.clearContentDiv();
+    // content.displayAllTodos(project);
 }
 
 
