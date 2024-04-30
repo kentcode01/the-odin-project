@@ -1,6 +1,6 @@
 import '../style.css';
 import { sidebar } from "../main/sidebar";
-import { addListeners, helpers } from '../helper/functions';
+import { helpers } from '../helper/functions';
 import { content } from '../main/content';
 
 const project = (title) => {
@@ -29,6 +29,9 @@ const createProjTab = (project) => {
     //     content.clearContentDiv();
     //     content.displayTodos(project);
     // });
+    projDiv.addEventListener('click', () => {
+        content.displayCurrProject(project, JSON.parse(localStorage.getItem(project.title)).todos);
+    });
 
     sidebar.sidebarNav.appendChild(projDiv);
 }
@@ -49,9 +52,6 @@ const addToProj = (project, todoObj) => {
     
     content.displayTodos(project, todoObj)
 
-
-    helpers.addDeleteListeners(JSON.parse(localStorage.getItem(project.title)), todoObj);
-    // helpers.addTodoPrevListeners(project, todo);
 }
 
 

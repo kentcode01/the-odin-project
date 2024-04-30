@@ -7,12 +7,10 @@ const helpers = (() => {
     
         let todoDiv = document.getElementById(`${todoItem.title}`);
         let deleteBtn = todoDiv.getElementsByClassName('setting-btn delete-btn')[0];
-        // let editBtn = todoDiv.getElementsByClassName('setting-btn edit-btn')[0];
-
+    
         deleteBtn.addEventListener('click', () => {
             deleteTodo(project, todoItem);
         });
-
 
         // for(let i = 0; i < localStorage.length; i++) {
         //     let todoList = (JSON.parse(localStorage.getItem(localStorage.key(i))).todos);
@@ -21,7 +19,6 @@ const helpers = (() => {
         //         let deleteBtn = todoDiv.getElementsByClassName('setting-div delete-btn')[0];
         //     }
         // }
-
         
     }
 

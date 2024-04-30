@@ -1,5 +1,6 @@
 import '../style.css';
-import { project } from '../utils/project';
+import { addToProj, project } from '../utils/project';
+import { helpers } from '../helper/functions';
 import { todo, createTodoDivs, createTodoPrev } from '../utils/todo';
 
 const content = (() => {
@@ -8,11 +9,10 @@ const content = (() => {
 
     const displayTodos = (project, todoObj) => {
 
-        // let todoList = JSON.parse(localStorage.getItem(project.title)).todos;
-        // for(let t = 0; t < todoList.length; t++) {
         let currDiv = createTodoPrev(project, todoObj);
         contentDiv.appendChild(currDiv);
-        // }
+        helpers.addDeleteListeners(JSON.parse(localStorage.getItem(project.title)), todoObj);
+        
     }
 
     const displayAllTodos = () => {
@@ -22,7 +22,14 @@ const content = (() => {
         }
     }
 
-  
+    const displayCurrProject = (project, todoObjList) => {
+        clearContentDiv();
+
+        for(let i = 0; i < todoObjList.length; i++) {
+            let currObj = todoObjList[i];
+            displayTodos(project, currObj);
+        }
+    }
 
     const clearContentDiv = () => {
         while(contentDiv.firstChild) {
@@ -30,7 +37,8 @@ const content = (() => {
         }
     }
 
-    return {contentDiv, displayTodos, displayAllTodos, clearContentDiv};
+
+    return {contentDiv, displayTodos, displayCurrProject, displayAllTodos, clearContentDiv};
 })();
 
 export { content };

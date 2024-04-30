@@ -94,6 +94,9 @@ const deleteTodo = (project, todoItem) => {
             break;
         }
     }
+    
+    document.getElementById(`${todoItem.title}`).remove();
+
     // content.clearContentDiv();
     // content.displayAllTodos(project);
 }
