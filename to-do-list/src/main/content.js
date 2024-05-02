@@ -11,8 +11,8 @@ const content = (() => {
 
         let currDiv = createTodoPrev(project, todoObj);
         contentDiv.appendChild(currDiv);
-        helpers.addDeleteListeners(JSON.parse(localStorage.getItem(project.title)), todoObj);
-        
+        helpers.addDeleteListener(JSON.parse(localStorage.getItem(project.title)), todoObj);
+        helpers.addCheckListener(JSON.parse(localStorage.getItem(project.title)), todoObj);
     }
 
     const displayAllTodos = () => {

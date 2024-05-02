@@ -25,10 +25,6 @@ const createProjTab = (project) => {
     projDiv.classList.add('project-tab')
     projDiv.setAttribute('id', project.title);
 
-    // projDiv.addEventListener('click', () => {
-    //     content.clearContentDiv();
-    //     content.displayTodos(project);
-    // });
     projDiv.addEventListener('click', () => {
         content.displayCurrProject(project, JSON.parse(localStorage.getItem(project.title)).todos);
     });
@@ -53,8 +49,6 @@ const addToProj = (project, todoObj) => {
     content.displayTodos(project, todoObj)
 
 }
-
-
 
 const allProject = () => {
 

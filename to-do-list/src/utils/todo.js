@@ -25,6 +25,7 @@ const createTodoPrev = (project, todoItem) => {
     priorityInput.textContent = 'Priority: ' + todoObj.priority;
 
     markInput.setAttribute('type', 'checkbox');
+    
 
     titleDiv.appendChild(markInput);
     titleDiv.appendChild(titleHead);
@@ -36,8 +37,6 @@ const createTodoPrev = (project, todoItem) => {
     todoDiv.appendChild(titleDiv);
     todoDiv.appendChild(summaryDiv);
     todoDiv.appendChild(settingDiv);
-    
-    
 
     markInput.classList.add('checkbox');
     editBtn.classList.add('setting-btn');
@@ -49,6 +48,8 @@ const createTodoPrev = (project, todoItem) => {
     settingDiv.classList.add('setting-div');
     todoDiv.classList.add('todo-prev-div');
 
+    markInput.checked = todoItem.checked;
+    if(markInput.checked) todoDiv.classList.toggle('complete');
     todoDiv.setAttribute('id', todoItem.title);
 
     return todoDiv;
@@ -97,8 +98,6 @@ const deleteTodo = (project, todoItem) => {
     
     document.getElementById(`${todoItem.title}`).remove();
 
-    // content.clearContentDiv();
-    // content.displayAllTodos(project);
 }
 
 
@@ -107,4 +106,4 @@ const editTodo = (project, todoItem) => {
     
 }
 
-export {todo, createTodoDivs, createTodoPrev, deleteTodo};
+export {todo, createTodoPrev, createTodoDivs, deleteTodo};
