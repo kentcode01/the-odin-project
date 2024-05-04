@@ -25,7 +25,6 @@ const createTodoPrev = (project, todoItem) => {
     priorityInput.textContent = 'Priority: ' + todoObj.priority;
 
     markInput.setAttribute('type', 'checkbox');
-    
 
     titleDiv.appendChild(markInput);
     titleDiv.appendChild(titleHead);
@@ -55,34 +54,6 @@ const createTodoPrev = (project, todoItem) => {
     return todoDiv;
 }
 
-const createTodoDivs = (project, todoItem) => {
-
-    let todoObj = todo(todoItem.title, todoItem.description, todoItem.dueDate, todoItem.priority, todoItem.notes);
-
-    let todoDiv = document.createElement('div');
-    let titleHead = document.createElement('h1');
-    let descriptPara = document.createElement('p');
-    let dueDatePara = document.createElement('p');
-    let priorityInput = document.createElement('input');
-    let notePara = document.createElement('p');
-
-    titleHead.textContent = todoObj.title;
-    descriptPara.textContent = todoObj.description;
-    dueDatePara.textContent = todoObj.dueDate;
-    priorityInput.textContent = todoObj.priority;
-    notePara.textContent = todoObj.note;
-    
-    todoDiv.appendChild(titleHead);
-    todoDiv.appendChild(descriptPara);
-    todoDiv.appendChild(dueDatePara);
-    todoDiv.appendChild(priorityInput);
-    todoDiv.appendChild(notePara);
-
-    todoDiv.classList.add('todo-div');
-
-    return todoDiv;
-}
-
 const deleteTodo = (project, todoItem) => {
     let projArray = JSON.parse(localStorage.getItem(project.title)).todos;
 
@@ -100,10 +71,8 @@ const deleteTodo = (project, todoItem) => {
 
 }
 
-
-
 const editTodo = (project, todoItem) => {
     
 }
 
-export {todo, createTodoPrev, createTodoDivs, deleteTodo};
+export {todo, createTodoPrev, deleteTodo};

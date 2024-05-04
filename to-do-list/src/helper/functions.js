@@ -1,5 +1,6 @@
-import { todo, deleteTodo } from "../utils/todo";
+import { todo, deleteTodo, createModalDiv } from "../utils/todo";
 import { project, createProj, addToProj } from "../utils/project";
+import { modal } from "../main/modal";
 
 
 const helpers = (() => {
@@ -14,8 +15,14 @@ const helpers = (() => {
         
     }
 
-    const addEditListeners = (project, todoItem) => {
-        
+    const addModalListener = (proj, todoItem) => {
+        let todoDiv = document.getElementById(`${todoItem.title}`);
+        let editBtn = todoDiv.getElementsByClassName('setting-btn edit-btn')[0];
+        // let modalDiv = createModalDiv(proj, todoItem);
+        editBtn.addEventListener('click', () => {
+            
+            document.getElementsByClassName('modal hidden')[0].classList.remove('hidden');
+        });
     }
 
     const addCheckListener = (proj, todoItem) => {
@@ -56,7 +63,7 @@ const helpers = (() => {
         addToProj(upcomingProj, task3);
     }
 
-    return {addDeleteListener, addEditListeners, addCheckListener, addTodoPrevListeners, addSampleData}
+    return {addDeleteListener, addModalListener, addCheckListener, addTodoPrevListeners, addSampleData}
 
 })();
 

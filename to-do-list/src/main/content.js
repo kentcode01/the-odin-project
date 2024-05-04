@@ -1,7 +1,7 @@
 import '../style.css';
 import { addToProj, project } from '../utils/project';
 import { helpers } from '../helper/functions';
-import { todo, createTodoDivs, createTodoPrev } from '../utils/todo';
+import { todo, createTodoPrev, createModalDivs } from '../utils/todo';
 
 const content = (() => {
     const contentDiv = document.createElement('div');
@@ -13,6 +13,7 @@ const content = (() => {
         contentDiv.appendChild(currDiv);
         helpers.addDeleteListener(JSON.parse(localStorage.getItem(project.title)), todoObj);
         helpers.addCheckListener(JSON.parse(localStorage.getItem(project.title)), todoObj);
+        helpers.addModalListener(JSON.parse(localStorage.getItem(project.title)), todoObj);
     }
 
     const displayAllTodos = () => {
@@ -31,6 +32,12 @@ const content = (() => {
         }
     }
 
+    const displayModal = (project, todoObj) => {
+        let modalDiv = createModalDivs(project, todoObj);
+
+        
+    }
+
     const clearContentDiv = () => {
         while(contentDiv.firstChild) {
             contentDiv.removeChild(contentDiv.firstChild);
@@ -38,7 +45,7 @@ const content = (() => {
     }
 
 
-    return {contentDiv, displayTodos, displayCurrProject, displayAllTodos, clearContentDiv};
+    return {contentDiv, displayTodos, displayCurrProject, displayAllTodos, displayModal, clearContentDiv};
 })();
 
 export { content };
