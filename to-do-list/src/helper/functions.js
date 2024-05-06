@@ -70,7 +70,7 @@ const helpers = (() => {
         addToProj(upcomingProj, task3);
     }
 
-    return {addDeleteListener, addModalListener, addCheckListener, addTodoPrevListeners, addSampleData}
+    return {addDeleteListener, addModalListener, addCheckListener, addSampleData}
 
 })();
 
