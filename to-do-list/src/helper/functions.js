@@ -18,10 +18,22 @@ const helpers = (() => {
     const addModalListener = (proj, todoItem) => {
         let todoDiv = document.getElementById(`${todoItem.title}`);
         let editBtn = todoDiv.getElementsByClassName('setting-btn edit-btn')[0];
-        // let modalDiv = createModalDiv(proj, todoItem);
+        
         editBtn.addEventListener('click', () => {
-            
-            document.getElementsByClassName('modal hidden')[0].classList.remove('hidden');
+            let modalDiv = document.getElementsByClassName('modal hidden')[0];
+            let formDiv = modalDiv.getElementsByTagName('form')[0];
+            modalDiv.setAttribute('id', `${proj.title}`);
+            formDiv.setAttribute('id', `${todoItem.title}`);
+            modalDiv.querySelector('form').setAttribute('id',`${todoItem.title}`);
+            modalDiv.querySelector('#title').textContent = `${todoItem.title}`;
+            modalDiv.querySelector('#description').value = `${todoItem.description}`;
+            modalDiv.querySelector('#date').textContent = `${todoItem.date}`;
+            modalDiv.querySelector('#priority').value = `${todoItem.priority}`;
+            modalDiv.querySelector('#notes').value = `${todoItem.notes}`;
+
+            modalDiv.classList.remove('hidden');
+
+
         });
     }
 
@@ -43,11 +55,6 @@ const helpers = (() => {
         });
     }
 
-    const addTodoPrevListeners = (project, todoItem) => {
-
-        // addDeleteListeners();
-        // addEditListeners();
-    }
 
     const addSampleData = () => {
         let todayProj = project("Today");
