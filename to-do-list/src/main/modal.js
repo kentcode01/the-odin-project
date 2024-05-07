@@ -15,7 +15,28 @@ const modal = (() => {
         let dateLegend = document.createElement('legend');
         let dateInput = document.createElement('input');
         let priorLegend = document.createElement('legend');
-        let priorInput = document.createElement('input');
+        let priorSelect = document.createElement('select');
+        let priorOptOne = document.createElement('option');
+        let priorOptTwo = document.createElement('option');
+        let priorOptThree = document.createElement('option');
+        let priorOptFour = document.createElement('option');
+
+        priorSelect.appendChild(priorOptOne);
+        priorSelect.appendChild(priorOptTwo);
+        priorSelect.appendChild(priorOptThree);
+        priorSelect.appendChild(priorOptFour);
+
+        priorOptOne.setAttribute('value', 'high');
+        priorOptTwo.setAttribute('value', 'medium');
+        priorOptThree.setAttribute('value', 'low');
+        priorOptFour.setAttribute('value', '---');
+
+        priorOptOne.textContent = 'High';
+        priorOptTwo.textContent = 'Medium';
+        priorOptThree.textContent = 'Low';
+        priorOptFour.textContent = '---';
+
+        // let priorInput = document.createElement('input');
         let notesLegend = document.createElement('legend');
         let notesInput = document.createElement('input');
         let submitBtn = document.createElement('button');
@@ -30,8 +51,10 @@ const modal = (() => {
         dateInput.setAttribute('id', 'date');
         dateInput.setAttribute('type', 'date');
         priorLegend.setAttribute('for', 'priority');
-        priorInput.setAttribute('id', 'priority');
-        priorInput.setAttribute('type', 'text');
+        priorSelect.setAttribute('id', 'priority');
+        priorSelect.setAttribute('name', 'priority');
+
+        // priorInput.setAttribute('type', 'text');
         notesLegend.setAttribute('for', 'notes');
         notesInput.setAttribute('type', 'text');
         notesInput.setAttribute('id', 'notes');
@@ -57,7 +80,7 @@ const modal = (() => {
         formElement.appendChild(dateLegend);
         formElement.appendChild(dateInput);
         formElement.appendChild(priorLegend);
-        formElement.appendChild(priorInput);
+        formElement.appendChild(priorSelect);
         formElement.appendChild(notesLegend);
         formElement.appendChild(notesInput);
         formElement.appendChild(submitBtn);
@@ -92,6 +115,7 @@ const modal = (() => {
             let formElement = modalDiv.getElementsByTagName('form')[0];
             todoObj.description = formElement.querySelector('#description').value;
             todoObj.dueDate = format(parse(formElement.querySelector('#date').value, 'yyyy-mm-dd', new Date()), 'mm/dd/yyyy');
+            todoObj.priority = formElement.querySelector('#priority').value;
             todoObj.notes = formElement.querySelector('#notes').value;
 
             objList.splice(index, 1, todoObj);

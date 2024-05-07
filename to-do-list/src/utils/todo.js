@@ -1,7 +1,6 @@
 import { content } from "../main/content";
 
 const todo = (title, description, dueDate, priority, notes, checked) => {
-    priority = [];
     return {title, description, dueDate, priority, notes, checked}
 }
 
@@ -12,7 +11,7 @@ const createTodoPrev = (project, todoItem) => {
     let todoDiv = document.createElement('div');
     let titleHead = document.createElement('h3');
     let dueDatePara = document.createElement('p');
-    let priorityInput = document.createElement('input');
+    let priorityPara = document.createElement('p');
     let editBtn = document.createElement('button');
     let deleteBtn = document.createElement('button');
     
@@ -22,14 +21,14 @@ const createTodoPrev = (project, todoItem) => {
 
     titleHead.textContent = todoObj.title;
     dueDatePara.textContent = 'Due: ' + todoObj.dueDate;
-    priorityInput.textContent = 'Priority: ' + todoObj.priority;
+    priorityPara.textContent = 'Priority: ' + todoObj.priority;
 
     markInput.setAttribute('type', 'checkbox');
 
     titleDiv.appendChild(markInput);
     titleDiv.appendChild(titleHead);
     summaryDiv.appendChild(dueDatePara);
-    summaryDiv.appendChild(priorityInput);
+    summaryDiv.appendChild(priorityPara);
     settingDiv.appendChild(editBtn);
     settingDiv.appendChild(deleteBtn);
 
@@ -71,8 +70,5 @@ const deleteTodo = (project, todoItem) => {
 
 }
 
-const editTodo = (project, todoItem) => {
-    
-}
 
 export {todo, createTodoPrev, deleteTodo};
