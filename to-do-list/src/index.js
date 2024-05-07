@@ -19,4 +19,4 @@ helpers.addSampleData();
 content.displayCurrProject(project("Today"), JSON.parse(localStorage.getItem('Today')).todos);
 
 modal.addSubmitListener();
-
+modal.closeModalListener();

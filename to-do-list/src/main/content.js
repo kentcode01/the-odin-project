@@ -13,7 +13,6 @@ const content = (() => {
         contentDiv.appendChild(currDiv);
         helpers.addDeleteListener(JSON.parse(localStorage.getItem(project.title)), todoObj);
         helpers.addCheckListener(JSON.parse(localStorage.getItem(project.title)), todoObj);
-
         helpers.addModalListener(JSON.parse(localStorage.getItem(project.title)), todoObj);
 
     }

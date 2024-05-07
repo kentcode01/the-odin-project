@@ -1,3 +1,5 @@
+import { format, parse } from "date-fns";
+import { content } from "./content";
 
 const modal = (() => {
 
@@ -18,6 +20,8 @@ const modal = (() => {
         let notesInput = document.createElement('input');
         let submitBtn = document.createElement('button');
 
+        let closeBtn = document.createElement('button');
+
         titleDiv.setAttribute('id', 'title');
         descriptLegend.setAttribute('for', 'description');
         descriptInput.setAttribute('id', 'description');
@@ -33,6 +37,7 @@ const modal = (() => {
         notesInput.setAttribute('id', 'notes');
 
         submitBtn.setAttribute('type', 'submit')
+        closeBtn.setAttribute('id', 'close-modal');
 
         titleDiv.textContent = '';
         descriptLegend.textContent = 'Description: ';
@@ -40,9 +45,12 @@ const modal = (() => {
         priorLegend.textContent = 'Priority: ';
         notesLegend.textContent = 'Notes: ';
         submitBtn.textContent = 'Save Changes';
+        closeBtn.textContent = 'X';
 
         modalDiv.appendChild(formDiv);
         formDiv.appendChild(formElement);
+
+        formElement.appendChild(closeBtn);
         formElement.appendChild(titleDiv);
         formElement.appendChild(descriptLegend);
         formElement.appendChild(descriptInput);
@@ -66,10 +74,10 @@ const modal = (() => {
         let submitBtn = modalDiv.querySelector('button[type=submit]');
        
         submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
             let projName = modalDiv.id;
             let todoName = modalDiv.getElementsByTagName('form')[0].id;
-
-            e.preventDefault();
             let index = -1;
             let todoObj;
             let objList = JSON.parse(localStorage.getItem(`${projName}`)).todos;
@@ -83,6 +91,7 @@ const modal = (() => {
            
             let formElement = modalDiv.getElementsByTagName('form')[0];
             todoObj.description = formElement.querySelector('#description').value;
+            todoObj.dueDate = format(parse(formElement.querySelector('#date').value, 'yyyy-mm-dd', new Date()), 'mm/dd/yyyy');
             todoObj.notes = formElement.querySelector('#notes').value;
 
             objList.splice(index, 1, todoObj);
@@ -93,10 +102,21 @@ const modal = (() => {
             modal.modalDiv.removeAttribute('id');
             modalDiv.getElementsByTagName('form')[0].removeAttribute('id');
             
-        })
+            content.displayCurrProject(JSON.parse(localStorage.getItem(projName)), JSON.parse(localStorage.getItem(projName)).todos);
+        });
     }
 
-    return {modalDiv, createModal, addSubmitListener};
+    const closeModalListener = () => {
+        let closeBtn = modalDiv.querySelector('#close-modal');
+
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modalDiv.classList.add('hidden');
+        });
+    }
+
+
+    return {modalDiv, createModal, addSubmitListener, closeModalListener};
     
 })();
    

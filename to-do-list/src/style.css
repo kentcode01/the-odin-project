@@ -50,12 +50,6 @@
 
 /* selectors for todo module */
 
-/* .todo-tab {
-    display: flex;
-    flex-direction: column;
-    margin: 0.2rem;
-    margin-left: 1rem;
-} */
 
 .todo-div {
     margin: 1.5rem;
@@ -68,7 +62,6 @@
     align-items: center;
     height: 3rem;
     border-bottom: var(--todo-border-color);
-    /* width: 100%; */
 }
 
 .todo-prev-div.complete {
@@ -84,11 +77,6 @@
     width: 25%;
     margin-right: 1rem;
 }
-
-/* .setting-div {
-    width: 10%;
-    
-} */
 
 .setting-btn {
 
@@ -110,7 +98,7 @@
 
 /* selector for svg files */
 
-/* selector for modal div */
+/* selector for modal and form div */
 
 .modal {
     position: fixed;
@@ -140,4 +128,12 @@
 .form {
     display: flex;
     flex-direction: column;
+}
+
+.form #close-modal {
+    width: 2rem;
+    text-align: center;
+    
+    background-color: rgb(255, 255, 255);
+    border: none;
 }
