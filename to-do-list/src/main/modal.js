@@ -1,11 +1,13 @@
 import { format, parse } from "date-fns";
 import { content } from "./content";
+import { createProj, project } from "../utils/project";
 
 const modal = (() => {
 
-    const modalDiv = document.createElement('div');
+    const editModalDiv = document.createElement('div');
+    const projModalDiv = document.createElement('div');
 
-    const createModal = () => {
+    const createEditModal = () => {
 
         let formDiv = document.createElement('div');
         let titleDiv = document.createElement('p');
@@ -36,11 +38,9 @@ const modal = (() => {
         priorOptThree.textContent = 'Low';
         priorOptFour.textContent = '---';
 
-        // let priorInput = document.createElement('input');
         let notesLegend = document.createElement('legend');
         let notesInput = document.createElement('input');
         let submitBtn = document.createElement('button');
-
         let closeBtn = document.createElement('button');
 
         titleDiv.setAttribute('id', 'title');
@@ -50,17 +50,16 @@ const modal = (() => {
         dateLegend.setAttribute('for', 'date');
         dateInput.setAttribute('id', 'date');
         dateInput.setAttribute('type', 'date');
+        
         priorLegend.setAttribute('for', 'priority');
         priorSelect.setAttribute('id', 'priority');
         priorSelect.setAttribute('name', 'priority');
-
-        // priorInput.setAttribute('type', 'text');
         notesLegend.setAttribute('for', 'notes');
         notesInput.setAttribute('type', 'text');
         notesInput.setAttribute('id', 'notes');
 
         submitBtn.setAttribute('type', 'submit')
-        closeBtn.setAttribute('id', 'close-modal');
+        closeBtn.classList.add('close-btn');
 
         titleDiv.textContent = '';
         descriptLegend.textContent = 'Description: ';
@@ -70,7 +69,7 @@ const modal = (() => {
         submitBtn.textContent = 'Save Changes';
         closeBtn.textContent = 'X';
 
-        modalDiv.appendChild(formDiv);
+        editModalDiv.appendChild(formDiv);
         formDiv.appendChild(formElement);
 
         formElement.appendChild(closeBtn);
@@ -85,8 +84,9 @@ const modal = (() => {
         formElement.appendChild(notesInput);
         formElement.appendChild(submitBtn);
 
-        modalDiv.classList.add('modal');
-        modalDiv.classList.add('hidden');
+        submitBtn.classList.add('submit-btn');
+        editModalDiv.classList.add('modal');
+        editModalDiv.classList.add('hidden');
         formDiv.classList.add('modal-form-div');
         formElement.classList.add('form');
     }
@@ -94,13 +94,13 @@ const modal = (() => {
 
     const addSubmitListener = () => {
         
-        let submitBtn = modalDiv.querySelector('button[type=submit]');
+        let submitBtn = editModalDiv.querySelector('button[type=submit]');
        
         submitBtn.addEventListener('click', (e) => {
             e.preventDefault();
             
-            let projName = modalDiv.id;
-            let todoName = modalDiv.getElementsByTagName('form')[0].id;
+            let projName = editModalDiv.id;
+            let todoName = editModalDiv.getElementsByTagName('form')[0].id;
             let index = -1;
             let todoObj;
             let objList = JSON.parse(localStorage.getItem(`${projName}`)).todos;
@@ -112,7 +112,7 @@ const modal = (() => {
                 }
             }
            
-            let formElement = modalDiv.getElementsByTagName('form')[0];
+            let formElement = editModalDiv.getElementsByTagName('form')[0];
             todoObj.description = formElement.querySelector('#description').value;
             todoObj.dueDate = format(parse(formElement.querySelector('#date').value, 'yyyy-mm-dd', new Date()), 'mm/dd/yyyy');
             todoObj.priority = formElement.querySelector('#priority').value;
@@ -122,25 +122,80 @@ const modal = (() => {
             let myProj = JSON.parse(localStorage.getItem(`${projName}`));
             myProj.todos = objList;
             localStorage.setItem(projName, JSON.stringify(myProj));
-            modal.modalDiv.classList.add('hidden');
-            modal.modalDiv.removeAttribute('id');
-            modalDiv.getElementsByTagName('form')[0].removeAttribute('id');
+            modal.editModalDiv.classList.add('hidden');
+            modal.editModalDiv.removeAttribute('id');
+            editModalDiv.getElementsByTagName('form')[0].removeAttribute('id');
             
             content.displayCurrProject(JSON.parse(localStorage.getItem(projName)), JSON.parse(localStorage.getItem(projName)).todos);
         });
     }
 
-    const closeModalListener = () => {
-        let closeBtn = modalDiv.querySelector('#close-modal');
+    const closeModalListener = (modaldiv) => {
+        let closeBtn = modaldiv.getElementsByClassName('close-btn')[0];
 
         closeBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            modalDiv.classList.add('hidden');
+            modaldiv.classList.add('hidden');
         });
     }
 
+    const createProjModal = () => {
+        
+        let formDiv = document.createElement('div');
+        let formElement = document.createElement('form');
+        let titleLegend = document.createElement('legend');
+        let titleInput = document.createElement('input');
+        let submitBtn = document.createElement('button');
+        let closeBtn = document.createElement('button');
 
-    return {modalDiv, createModal, addSubmitListener, closeModalListener};
+        titleLegend.setAttribute('for', 'proj-form-title');
+        titleInput.setAttribute('id', 'proj-form-title');
+        submitBtn.setAttribute('id', 'proj-submit-btn');
+
+
+        titleLegend.textContent = 'Project Title';
+        submitBtn.textContent = 'Add Project';
+        closeBtn.textContent = 'X';
+
+        projModalDiv.appendChild(formDiv);
+        formDiv.appendChild(formElement);
+        formElement.appendChild(closeBtn);
+        formElement.appendChild(titleLegend);
+        formElement.appendChild(titleInput);
+        formElement.appendChild(submitBtn);
+
+        projModalDiv.classList.add('modal');
+        projModalDiv.classList.add('hidden');
+    
+
+        closeBtn.classList.add('close-btn');
+        submitBtn.classList.add('submit-btn');
+        formDiv.classList.add('modal-form-div');
+        formElement.classList.add('form');
+
+        closeModalListener(projModalDiv);
+        makeProjListener();
+    }
+
+
+    const addProjectListener = () => {
+        projModalDiv.classList.remove('hidden');
+    }
+
+    const makeProjListener = () => {
+        
+        let submitBtn = projModalDiv.getElementsByClassName('submit-btn')[0];
+
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            let formElement = projModalDiv.getElementsByTagName('form')[0];
+            let newProj = formElement.querySelector('#proj-form-title').value;
+            createProj(project(newProj));
+            projModalDiv.classList.add('hidden');
+        });
+    }
+
+    return {editModalDiv, projModalDiv, createEditModal, createProjModal, addProjectListener, addSubmitListener, closeModalListener};
     
 })();
    

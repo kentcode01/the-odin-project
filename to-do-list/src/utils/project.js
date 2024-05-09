@@ -47,12 +47,9 @@ const addToProj = (project, todoObj) => {
     localStorage.setItem(project.title, JSON.stringify(proj));
     
     content.displayTodos(project, todoObj)
-
 }
 
-const allProject = () => {
 
-}
 
 
 

@@ -33,8 +33,6 @@ const content = (() => {
         }
     }
 
-    
-
     const clearContentDiv = () => {
         while(contentDiv.firstChild) {
             contentDiv.removeChild(contentDiv.firstChild);

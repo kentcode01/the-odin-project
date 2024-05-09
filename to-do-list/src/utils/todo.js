@@ -1,4 +1,4 @@
-import { content } from "../main/content";
+import { isToday } from "date-fns";
 
 const todo = (title, description, dueDate, priority, notes, checked) => {
     return {title, description, dueDate, priority, notes, checked}
@@ -20,7 +20,14 @@ const createTodoPrev = (project, todoItem) => {
     let settingDiv = document.createElement('div');
 
     titleHead.textContent = todoObj.title;
-    dueDatePara.textContent = 'Due: ' + todoObj.dueDate;
+
+    let dateStr = todoObj.dueDate;
+
+    if(isToday(dateStr)) {
+        dateStr = 'Today';
+    }
+
+    dueDatePara.textContent = 'Due: ' + dateStr;
     priorityPara.textContent = 'Priority: ' + todoObj.priority;
 
     markInput.setAttribute('type', 'checkbox');
@@ -31,7 +38,6 @@ const createTodoPrev = (project, todoItem) => {
     summaryDiv.appendChild(priorityPara);
     settingDiv.appendChild(editBtn);
     settingDiv.appendChild(deleteBtn);
-
     todoDiv.appendChild(titleDiv);
     todoDiv.appendChild(summaryDiv);
     todoDiv.appendChild(settingDiv);
@@ -69,6 +75,11 @@ const deleteTodo = (project, todoItem) => {
     document.getElementById(`${todoItem.title}`).remove();
 
 }
+
+const addNewTodo = (project, todoItem) => {
+
+}
+
 
 
 export {todo, createTodoPrev, deleteTodo};

@@ -1,6 +1,8 @@
 import { todo, deleteTodo, createModalDiv } from "../utils/todo";
 import { project, createProj, addToProj } from "../utils/project";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
+import { sidebar } from "../main/sidebar";
+import { modal } from "../main/modal";
 
 
 const helpers = (() => {
@@ -20,7 +22,7 @@ const helpers = (() => {
         let editBtn = todoDiv.getElementsByClassName('setting-btn edit-btn')[0];
         
         editBtn.addEventListener('click', () => {
-            let modalDiv = document.getElementsByClassName('modal hidden')[0];
+            let modalDiv = modal.editModalDiv;
             let formDiv = modalDiv.getElementsByTagName('form')[0];
             modalDiv.setAttribute('id', `${proj.title}`);
             formDiv.setAttribute('id', `${todoItem.title}`);
@@ -32,7 +34,6 @@ const helpers = (() => {
             modalDiv.querySelector('#notes').value = `${todoItem.notes}`;
 
             modalDiv.classList.remove('hidden');
-
 
         });
     }
@@ -55,6 +56,9 @@ const helpers = (() => {
         });
     }
 
+    const addProjectListener = () => {
+        
+    }
 
     const addSampleData = () => {
         let todayProj = project("Today");
@@ -65,9 +69,12 @@ const helpers = (() => {
         let task1 = todo("Wake up early", "Get up at 7am", format(new Date(2023, 6, 2), 'MM/dd/yyyy'), "high", "Make coffee once up", true, todayProj.title);
         let task2 = todo("Submit Project", "Include everything in the module", format(new Date(2020, 1, 11), 'MM/dd/yyyy'), "low", "Be sure to share with team", false, todayProj.title);
         let task3 = todo("Cook Dinner", "Making seafood spaghetti today", format(new Date(2022, 4, 21), 'MM/dd/yyyy'), "medium", "Buy from Krogers", true, upcomingProj.title);
+        
         addToProj(todayProj, task1);
         addToProj(todayProj, task2);
         addToProj(upcomingProj, task3);
+
+        // sidebar.sidebarNav.appendChild(sidebar.addProjTab);
     }
 
     return {addDeleteListener, addModalListener, addCheckListener, addSampleData}
