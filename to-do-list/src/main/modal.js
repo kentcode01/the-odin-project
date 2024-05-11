@@ -1,6 +1,7 @@
 import { format, parse } from "date-fns";
 import { content } from "./content";
 import { createProj, project } from "../utils/project";
+import { todo } from "../utils/todo";
 
 const modal = (() => {
 
@@ -10,7 +11,8 @@ const modal = (() => {
     const createEditModal = () => {
 
         let formDiv = document.createElement('div');
-        let titleDiv = document.createElement('p');
+        let titleLegend = document.createElement('legend');
+        let titleInput = document.createElement('input');
         let formElement = document.createElement('form');
         let descriptLegend = document.createElement('legend');
         let descriptInput = document.createElement('input');
@@ -43,7 +45,7 @@ const modal = (() => {
         let submitBtn = document.createElement('button');
         let closeBtn = document.createElement('button');
 
-        titleDiv.setAttribute('id', 'title');
+        titleInput.setAttribute('id', 'title');
         descriptLegend.setAttribute('for', 'description');
         descriptInput.setAttribute('id', 'description');
         descriptInput.setAttribute('type', 'text');
@@ -51,6 +53,7 @@ const modal = (() => {
         dateInput.setAttribute('id', 'date');
         dateInput.setAttribute('type', 'date');
         
+        titleLegend.setAttribute('for', 'title');
         priorLegend.setAttribute('for', 'priority');
         priorSelect.setAttribute('id', 'priority');
         priorSelect.setAttribute('name', 'priority');
@@ -61,7 +64,7 @@ const modal = (() => {
         submitBtn.setAttribute('type', 'submit')
         closeBtn.classList.add('close-btn');
 
-        titleDiv.textContent = '';
+        titleLegend.textContent = 'Title';
         descriptLegend.textContent = 'Description: ';
         dateLegend.textContent = 'Date: ';
         priorLegend.textContent = 'Priority: ';
@@ -73,7 +76,8 @@ const modal = (() => {
         formDiv.appendChild(formElement);
 
         formElement.appendChild(closeBtn);
-        formElement.appendChild(titleDiv);
+        formElement.appendChild(titleLegend);
+        formElement.appendChild(titleInput);
         formElement.appendChild(descriptLegend);
         formElement.appendChild(descriptInput);
         formElement.appendChild(dateLegend);
@@ -98,30 +102,59 @@ const modal = (() => {
        
         submitBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            let projName = editModalDiv.id;
-            let todoName = editModalDiv.getElementsByTagName('form')[0].id;
-            let index = -1;
-            let todoObj;
-            let objList = JSON.parse(localStorage.getItem(`${projName}`)).todos;
-            for(let i = 0; i < objList.length; i++) {
-                if(objList[i].title === todoName) {
-                    todoObj = objList[i];
-                    index = i;
-                    break;
-                }
-            }
-           
-            let formElement = editModalDiv.getElementsByTagName('form')[0];
-            todoObj.description = formElement.querySelector('#description').value;
-            todoObj.dueDate = format(parse(formElement.querySelector('#date').value, 'yyyy-mm-dd', new Date()), 'mm/dd/yyyy');
-            todoObj.priority = formElement.querySelector('#priority').value;
-            todoObj.notes = formElement.querySelector('#notes').value;
 
-            objList.splice(index, 1, todoObj);
-            let myProj = JSON.parse(localStorage.getItem(`${projName}`));
-            myProj.todos = objList;
-            localStorage.setItem(projName, JSON.stringify(myProj));
+            let projName = editModalDiv.id;
+            let formElement = editModalDiv.getElementsByTagName('form')[0];
+
+            if(editModalDiv.classList.contains('create-todo')) {
+                
+                
+                let todoObj = todo('', '', '', '', '', '');
+                let objList = JSON.parse(localStorage.getItem(`${projName}`)).todos;
+                let index = objList.length;
+            
+                
+                todoObj.title = formElement.querySelector('#title').value;
+                todoObj.description = formElement.querySelector('#description').value;
+                todoObj.dueDate = format(parse(formElement.querySelector('#date').value, 'yyyy-mm-dd', new Date()), 'mm/dd/yyyy');
+                todoObj.priority = formElement.querySelector('#priority').value;
+                todoObj.notes = formElement.querySelector('#notes').value;
+
+                objList.splice(index, 1, todoObj);
+                let myProj = JSON.parse(localStorage.getItem(`${projName}`));
+                myProj.todos = objList;
+                localStorage.setItem(projName, JSON.stringify(myProj));
+
+                
+                
+                editModalDiv.classList.remove('create-todo');
+            } else {
+                
+                let todoName = editModalDiv.getElementsByTagName('form')[0].id;
+                let index = -1;
+                let todoObj;
+                let objList = JSON.parse(localStorage.getItem(`${projName}`)).todos;
+                for(let i = 0; i < objList.length; i++) {
+                    if(objList[i].title === todoName) {
+                        todoObj = objList[i];
+                        index = i;
+                        break;
+                    }
+                }
+            
+                
+                todoObj.title = formElement.querySelector('#title').value;
+                todoObj.description = formElement.querySelector('#description').value;
+                todoObj.dueDate = format(parse(formElement.querySelector('#date').value, 'yyyy-mm-dd', new Date()), 'mm/dd/yyyy');
+                todoObj.priority = formElement.querySelector('#priority').value;
+                todoObj.notes = formElement.querySelector('#notes').value;
+
+                objList.splice(index, 1, todoObj);
+                let myProj = JSON.parse(localStorage.getItem(`${projName}`));
+                myProj.todos = objList;
+                localStorage.setItem(projName, JSON.stringify(myProj));
+            }
+                
             modal.editModalDiv.classList.add('hidden');
             modal.editModalDiv.removeAttribute('id');
             editModalDiv.getElementsByTagName('form')[0].removeAttribute('id');

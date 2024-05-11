@@ -27,7 +27,7 @@ const helpers = (() => {
             modalDiv.setAttribute('id', `${proj.title}`);
             formDiv.setAttribute('id', `${todoItem.title}`);
             modalDiv.querySelector('form').setAttribute('id',`${todoItem.title}`);
-            modalDiv.querySelector('#title').textContent = `${todoItem.title}`;
+            modalDiv.querySelector('#title').value = `${todoItem.title}`;
             modalDiv.querySelector('#description').value = `${todoItem.description}`;
             modalDiv.querySelector('#date').value = `${todoItem.dueDate}`;
             modalDiv.querySelector('#priority').value = `${todoItem.priority}`;
@@ -37,6 +37,8 @@ const helpers = (() => {
 
         });
     }
+
+
 
     const addCheckListener = (proj, todoItem) => {
         let todoDiv = document.getElementById(`${todoItem.title}`);
@@ -56,10 +58,6 @@ const helpers = (() => {
         });
     }
 
-    const addProjectListener = () => {
-        
-    }
-
     const addSampleData = () => {
         let todayProj = project("Today");
         createProj(todayProj);
@@ -74,8 +72,9 @@ const helpers = (() => {
         addToProj(todayProj, task2);
         addToProj(upcomingProj, task3);
 
-        // sidebar.sidebarNav.appendChild(sidebar.addProjTab);
     }
+
+    
 
     return {addDeleteListener, addModalListener, addCheckListener, addSampleData}
 

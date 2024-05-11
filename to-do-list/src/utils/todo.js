@@ -76,8 +76,8 @@ const deleteTodo = (project, todoItem) => {
 
 }
 
-const addNewTodo = (project, todoItem) => {
-
+const addNewTodo = () => {
+    
 }
 
 

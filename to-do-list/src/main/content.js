@@ -28,7 +28,7 @@ const content = (() => {
 
     const displayCurrProject = (project, todoObjList) => {
         clearContentDiv();
-
+        modal.editModalDiv.setAttribute('id', `${project.title}`);
         for(let i = 0; i < todoObjList.length; i++) {
             let currObj = todoObjList[i];
             displayTodos(project, currObj);
@@ -52,6 +52,25 @@ const content = (() => {
 
         navbarDiv.appendChild(todoBtn);
         navbarDiv.appendChild(calendarBtn);
+
+        todoBtn.addEventListener('click', () => {
+            
+            let modalDiv = modal.editModalDiv;
+            let projName = modalDiv.id;
+            let formDiv = modalDiv.getElementsByTagName('form')[0];
+            modalDiv.setAttribute('id', `${projName}`);
+            modalDiv.querySelector('form').setAttribute('id',``);
+            modalDiv.querySelector('#title').value = ``;
+            modalDiv.querySelector('#description').value = ``;
+            modalDiv.querySelector('#date').value = ``;
+            modalDiv.querySelector('#priority').value = ``;
+            modalDiv.querySelector('#notes').value = ``;
+
+            modalDiv.classList.remove('hidden');
+            modalDiv.classList.add('create-todo');
+
+            
+        })
 
         todoBtn.setAttribute('id', 'add-todo-btn');
         calendarBtn.setAttribute('id', 'calendar-btn');

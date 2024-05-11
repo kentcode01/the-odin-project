@@ -14,8 +14,6 @@ pageDiv.appendChild(content.contentDiv);
 pageDiv.appendChild(modal.editModalDiv);
 pageDiv.appendChild(modal.projModalDiv);
 
-
-
 modal.createEditModal();
 modal.createProjModal();
 
