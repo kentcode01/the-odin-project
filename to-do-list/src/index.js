@@ -6,12 +6,15 @@ import './style.css';
 import { modal } from "./main/modal";
 
 
+
 const pageDiv = document.querySelector('#page');
 
 pageDiv.appendChild(sidebar.sidebarNav);
 pageDiv.appendChild(content.contentDiv);
 pageDiv.appendChild(modal.editModalDiv);
 pageDiv.appendChild(modal.projModalDiv);
+
+
 
 modal.createEditModal();
 modal.createProjModal();
@@ -22,3 +25,4 @@ content.displayCurrProject(project("Today"), JSON.parse(localStorage.getItem('To
 
 modal.addSubmitListener();
 modal.closeModalListener(modal.editModalDiv);
+content.createNavbar();

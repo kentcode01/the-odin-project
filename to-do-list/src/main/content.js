@@ -7,6 +7,8 @@ const content = (() => {
     const contentDiv = document.createElement('div');
     contentDiv.classList.add('content');
 
+    const contentNavbar = document.createElement('div');
+
     const displayTodos = (project, todoObj) => {
 
         let currDiv = createTodoPrev(project, todoObj);
@@ -31,6 +33,8 @@ const content = (() => {
             let currObj = todoObjList[i];
             displayTodos(project, currObj);
         }
+
+        createNavbar();
     }
 
     const clearContentDiv = () => {
@@ -39,8 +43,24 @@ const content = (() => {
         }
     }
 
+    const createNavbar = () => {
+        let navbarDiv = document.createElement('div');
+        let todoBtn = document.createElement('button');
+        let calendarBtn = document.createElement('button');
 
-    return {contentDiv, displayTodos, displayCurrProject, displayAllTodos, clearContentDiv};
+        navbarDiv.classList.add('content-navbar');
+
+        navbarDiv.appendChild(todoBtn);
+        navbarDiv.appendChild(calendarBtn);
+
+        todoBtn.setAttribute('id', 'add-todo-btn');
+        calendarBtn.setAttribute('id', 'calendar-btn');
+
+        contentDiv.appendChild(navbarDiv);
+    }
+
+
+    return {contentDiv, contentNavbar, createNavbar, displayTodos, displayCurrProject, displayAllTodos, clearContentDiv};
 })();
 
 export { content };
