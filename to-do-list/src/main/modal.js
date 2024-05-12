@@ -7,6 +7,7 @@ const modal = (() => {
 
     const editModalDiv = document.createElement('div');
     const projModalDiv = document.createElement('div');
+    const deleteModalDiv = document.createElement('div');
 
     const createEditModal = () => {
 
@@ -230,10 +231,43 @@ const modal = (() => {
     }
 
     const deleteProjModal = () => {
-        let deleteModal = document.createElement('div');
+        
+        let formDiv = document.createElement('div');
+        let formElement = document.createElement('form');
+        let deleteProjBtn = document.createElement('button');
+        let formText = document.createElement('p');
+        let closeBtn = document.createElement('button');
+
+        deleteProjBtn.textContent = 'Delete';
+
+        deleteModalDiv.appendChild(formDiv);
+        
+        formDiv.appendChild(formElement);
+        formElement.appendChild(closeBtn);
+        formElement.appendChild(formText);
+        formElement.appendChild(deleteProjBtn);
+
+        deleteProjBtn.addEventListener('click', () => {
+            let projName = editModalDiv.id;
+            localStorage.removeItem(projName);
+            let removeTab = document.getElementsByClassName('sidebar')[0].querySelector(`#${projName}`);
+            removeTab.parentNode.removeChild(removeTab);
+            content.displayCurrProject(localStorage.getItem('Today'), JSON.parse(localStorage.getItem('Today')).todos);
+        })
+
+        closeBtn.textContent = 'X';
+
+        deleteModalDiv.classList.add('modal');
+        deleteModalDiv.classList.add('hidden');
+        closeBtn.classList.add('close-btn');
+        formDiv.classList.add('modal-form-div');
+        formElement.classList.add('form');
+
+        closeModalListener(deleteModalDiv);
+      
     }
 
-    return {editModalDiv, projModalDiv, createEditModal, createProjModal, deleteProjModal, addProjectListener, addSubmitListener, closeModalListener};
+    return {editModalDiv, projModalDiv, deleteModalDiv, createEditModal, createProjModal, deleteProjModal, addProjectListener, addSubmitListener, closeModalListener};
     
 })();
    

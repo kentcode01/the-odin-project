@@ -13,9 +13,11 @@ pageDiv.appendChild(sidebar.sidebarNav);
 pageDiv.appendChild(content.contentDiv);
 pageDiv.appendChild(modal.editModalDiv);
 pageDiv.appendChild(modal.projModalDiv);
+pageDiv.appendChild(modal.deleteModalDiv);
 
 modal.createEditModal();
 modal.createProjModal();
+modal.deleteProjModal();
 
 helpers.addSampleData();
 

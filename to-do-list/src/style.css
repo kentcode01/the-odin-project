@@ -168,7 +168,6 @@
 /* selector for modal and form div */
 
 .modal {
-
     position: fixed;
     top: 0;
     bottom: 0;
@@ -193,12 +192,13 @@
     height: auto;
     padding: 2rem;
     background-color: rgb(255, 255, 255);
-    
 }
 
 .create-todo .modal-form-div {
     background-color: blue;
 }
+
+
 
 .form {
     display: flex;
