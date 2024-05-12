@@ -168,6 +168,7 @@ const modal = (() => {
 
         closeBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            if(modaldiv.classList.contains('create-todo')) modaldiv.classList.remove('create-todo');
             modaldiv.classList.add('hidden');
         });
     }
@@ -228,7 +229,11 @@ const modal = (() => {
         });
     }
 
-    return {editModalDiv, projModalDiv, createEditModal, createProjModal, addProjectListener, addSubmitListener, closeModalListener};
+    const deleteProjModal = () => {
+        let deleteModal = document.createElement('div');
+    }
+
+    return {editModalDiv, projModalDiv, createEditModal, createProjModal, deleteProjModal, addProjectListener, addSubmitListener, closeModalListener};
     
 })();
    

@@ -28,7 +28,9 @@ const content = (() => {
 
     const displayCurrProject = (project, todoObjList) => {
         clearContentDiv();
+        content.contentDiv.setAttribute('id', `${project.title}`);
         modal.editModalDiv.setAttribute('id', `${project.title}`);
+        createProjHeader(project.title);
         for(let i = 0; i < todoObjList.length; i++) {
             let currObj = todoObjList[i];
             displayTodos(project, currObj);
@@ -43,21 +45,38 @@ const content = (() => {
         }
     }
 
+    const createProjHeader = (projName) => {
+        let headerDiv = document.createElement('div');
+        let projTitle = document.createElement('h1');
+
+        headerDiv.appendChild(projTitle);
+
+        projTitle.textContent = projName;
+        
+        projTitle.classList.add('proj-title');
+        headerDiv.classList.add('proj-header-div');
+        contentDiv.appendChild(headerDiv);
+    }
+
     const createNavbar = () => {
         let navbarDiv = document.createElement('div');
         let todoBtn = document.createElement('button');
         let calendarBtn = document.createElement('button');
+        let deleteProjBtn = document.createElement('button');
 
         navbarDiv.classList.add('content-navbar');
 
         navbarDiv.appendChild(todoBtn);
         navbarDiv.appendChild(calendarBtn);
+        navbarDiv.appendChild(deleteProjBtn);
+
+     
 
         todoBtn.addEventListener('click', () => {
             
+            
             let modalDiv = modal.editModalDiv;
-            let projName = modalDiv.id;
-            let formDiv = modalDiv.getElementsByTagName('form')[0];
+            let projName = content.contentDiv.id;
             modalDiv.setAttribute('id', `${projName}`);
             modalDiv.querySelector('form').setAttribute('id',``);
             modalDiv.querySelector('#title').value = ``;
@@ -72,8 +91,18 @@ const content = (() => {
             
         })
 
+        deleteProjBtn.addEventListener('click', () => {
+            let modalDiv = modal.editModalDiv;
+            let projName = content.contentDiv.id;
+            localStorage.removeItem(projName);
+            let removeTab = document.getElementsByClassName('sidebar')[0].querySelector(`#${projName}`);
+            removeTab.parentNode.removeChild(removeTab);
+            displayCurrProject(localStorage.getItem('Today'), JSON.parse(localStorage.getItem('Today')).todos);
+        })
+
         todoBtn.setAttribute('id', 'add-todo-btn');
         calendarBtn.setAttribute('id', 'calendar-btn');
+        deleteProjBtn.setAttribute('id', 'delete-proj-btn');
 
         contentDiv.appendChild(navbarDiv);
     }
