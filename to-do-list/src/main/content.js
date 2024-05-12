@@ -85,12 +85,14 @@ const content = (() => {
             modalDiv.classList.add('create-todo');
         })
 
-        deleteProjBtn.addEventListener('click', () => {
+        deleteProjBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             modal.deleteModalDiv.classList.add('delete-proj-div');
             modal.deleteModalDiv.classList.remove('hidden');
             
             let formText = modal.deleteModalDiv.getElementsByClassName('modal-form-div')[0].getElementsByTagName('p')[0];
             formText.textContent = `Are you sure you want to delete ${modal.editModalDiv.id} project?`;
+            
         })
 
         todoBtn.setAttribute('id', 'add-todo-btn');

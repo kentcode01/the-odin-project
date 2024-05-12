@@ -247,12 +247,14 @@ const modal = (() => {
         formElement.appendChild(formText);
         formElement.appendChild(deleteProjBtn);
 
-        deleteProjBtn.addEventListener('click', () => {
+        deleteProjBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             let projName = editModalDiv.id;
             localStorage.removeItem(projName);
             let removeTab = document.getElementsByClassName('sidebar')[0].querySelector(`#${projName}`);
             removeTab.parentNode.removeChild(removeTab);
-            content.displayCurrProject(localStorage.getItem('Today'), JSON.parse(localStorage.getItem('Today')).todos);
+            content.displayCurrProject(JSON.parse(localStorage.getItem('Today')), JSON.parse(localStorage.getItem('Today')).todos);
+            deleteModalDiv.classList.add('hidden');
         })
 
         closeBtn.textContent = 'X';
