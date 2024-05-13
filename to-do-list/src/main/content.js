@@ -3,7 +3,11 @@ import { addToProj, project } from '../utils/project';
 import { helpers } from '../helper/functions';
 import { todo, createTodoPrev} from '../utils/todo';
 import { modal } from './modal';
+import { isToday } from "date-fns";
+import { sidebar } from './sidebar';
+
 const content = (() => {
+
     const contentDiv = document.createElement('div');
     contentDiv.classList.add('content');
 
@@ -37,6 +41,22 @@ const content = (() => {
         }
 
         createNavbar();
+    }
+
+    const generateTodayProject = () => {
+        let todoProj = JSON.parse(localStorage.getItem('Today'));
+        todoProj.todos = [];
+        for(let i = 0; i < localStorage.length; i++) {
+            let currentProj = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            for(let j = 0; j < currentProj.todos.length && currentProj.title !== 'Today'; j++) {
+                if(isToday(currentProj.todos[j].dueDate)) {
+                    todoProj.todos.push(currentProj.todos[j]);
+                }
+            }
+        }
+        localStorage.setItem('Today', JSON.stringify(todoProj));
+
+        displayCurrProject(todoProj,  JSON.parse(localStorage.getItem(todoProj.title)).todos)
     }
 
     const clearContentDiv = () => {
@@ -88,8 +108,7 @@ const content = (() => {
         deleteProjBtn.addEventListener('click', (e) => {
             e.preventDefault();
             modal.deleteModalDiv.classList.add('delete-proj-div');
-            modal.deleteModalDiv.classList.remove('hidden');
-            
+            modal.deleteModalDiv.classList.remove('hidden');         
             let formText = modal.deleteModalDiv.getElementsByClassName('modal-form-div')[0].getElementsByTagName('p')[0];
             formText.textContent = `Are you sure you want to delete ${modal.editModalDiv.id} project?`;
             
@@ -102,8 +121,7 @@ const content = (() => {
         contentDiv.appendChild(navbarDiv);
     }
 
-
-    return {contentDiv, contentNavbar, createNavbar, displayTodos, displayCurrProject, displayAllTodos, clearContentDiv};
+    return {contentDiv, contentNavbar, clearContentDiv, createNavbar, displayTodos, displayCurrProject, displayAllTodos, generateTodayProject};
 })();
 
 export { content };

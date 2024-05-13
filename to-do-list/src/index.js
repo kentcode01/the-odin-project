@@ -2,8 +2,8 @@ import { sidebar } from "./main/sidebar";
 import { content } from "./main/content";
 import { helpers } from "./helper/functions";
 import { project } from "./utils/project";
-import './style.css';
 import { modal } from "./main/modal";
+import './style.css';
 
 
 
@@ -26,3 +26,5 @@ content.displayCurrProject(project("Today"), JSON.parse(localStorage.getItem('To
 modal.addSubmitListener();
 modal.closeModalListener(modal.editModalDiv);
 content.createNavbar();
+
+content.generateTodayProject();

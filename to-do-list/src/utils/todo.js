@@ -64,10 +64,10 @@ const deleteTodo = (project, todoItem) => {
 
     for(let i = 0; i < projArray.length; i++) {
         if(JSON.stringify(projArray[i]) === JSON.stringify(todoItem)) {
-
             projArray.splice(i,1);
-            let newVal = "{\"title\":".toString() + JSON.stringify(project.title) + "," + "\"todos\":" + JSON.stringify(projArray) + "}";
-            localStorage.setItem(project.title, newVal);
+            let myProj = JSON.parse(localStorage.getItem(project.title));
+            myProj.todos = projArray;
+            localStorage.setItem(project.title, JSON.stringify(myProj));
             break;
         }
     }

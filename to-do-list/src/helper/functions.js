@@ -1,7 +1,6 @@
 import { todo, deleteTodo, createModalDiv } from "../utils/todo";
 import { project, createProj, addToProj } from "../utils/project";
 import { format, parse } from "date-fns";
-import { sidebar } from "../main/sidebar";
 import { modal } from "../main/modal";
 
 
@@ -32,23 +31,18 @@ const helpers = (() => {
             modalDiv.querySelector('#date').value = `${todoItem.dueDate}`;
             modalDiv.querySelector('#priority').value = `${todoItem.priority}`;
             modalDiv.querySelector('#notes').value = `${todoItem.notes}`;
-
             modalDiv.classList.remove('hidden');
 
         });
     }
-
-
 
     const addCheckListener = (proj, todoItem) => {
         let todoDiv = document.getElementById(`${todoItem.title}`);
         let checkBox = todoDiv.querySelector('input[type=checkbox]');
         
         checkBox.addEventListener('click', () => {
-            
             let objList = JSON.parse(localStorage.getItem(`${proj.title}`)).todos;
             let index = (JSON.parse(localStorage.getItem(`${proj.title}`)).todos).findIndex(id => JSON.stringify(id) === JSON.stringify(todoItem));
-
             todoItem.checked = checkBox.checked;
             todoDiv.classList.toggle('complete');
             objList.splice(index, 1, todoItem);
@@ -59,22 +53,21 @@ const helpers = (() => {
     }
 
     const addSampleData = () => {
-        let todayProj = project("Today");
-        createProj(todayProj);
-        let upcomingProj = project("Upcoming");
-        createProj(upcomingProj);
-
-        let task1 = todo("Wake up early", "Get up at 7am", format(new Date(2023, 6, 2), 'MM/dd/yyyy'), "high", "Make coffee once up", false, todayProj.title);
-        let task2 = todo("Submit Project", "Include everything in the module", format(new Date(2020, 1, 11), 'MM/dd/yyyy'), "low", "Be sure to share with team", false, todayProj.title);
-        let task3 = todo("Cook Dinner", "Making seafood spaghetti today", format(new Date(2022, 4, 21), 'MM/dd/yyyy'), "medium", "Buy from Krogers", true, upcomingProj.title);
+        let todayProj = project("Today", true);
         
-        addToProj(todayProj, task1);
-        addToProj(todayProj, task2);
+        createProj(todayProj);
+        let upcomingProj = project("Upcoming", true);
+        createProj(upcomingProj);
+        let otherProj = project("Others");
+        createProj(otherProj);
+        let task1 = todo("Wake up early", "Get up at 7am", format(new Date(2024, 4, 12), 'MM/dd/yyyy'), "high", "Make coffee once up", false, todayProj.title);
+        let task2 = todo("Submit Project", "Include everything in the module", format(new Date(2024, 4, 13), 'MM/dd/yyyy'), "low", "Be sure to share with team", false, todayProj.title);
+        let task3 = todo("Cook Dinner", "Making seafood spaghetti today", format(new Date(2024, 4, 12), 'MM/dd/yyyy'), "medium", "Buy from Krogers", true, upcomingProj.title);
+        addToProj(otherProj, task1);
+        addToProj(otherProj, task2);
         addToProj(upcomingProj, task3);
 
     }
-
-    
 
     return {addDeleteListener, addModalListener, addCheckListener, addSampleData}
 

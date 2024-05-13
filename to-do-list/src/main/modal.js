@@ -113,7 +113,6 @@ const modal = (() => {
                 let todoObj = todo('', '', '', '', '', '');
                 let objList = JSON.parse(localStorage.getItem(`${projName}`)).todos;
                 let index = objList.length;
-            
                 
                 todoObj.title = formElement.querySelector('#title').value;
                 todoObj.description = formElement.querySelector('#description').value;
@@ -125,10 +124,8 @@ const modal = (() => {
                 let myProj = JSON.parse(localStorage.getItem(`${projName}`));
                 myProj.todos = objList;
                 localStorage.setItem(projName, JSON.stringify(myProj));
-
-                
-                
                 editModalDiv.classList.remove('create-todo');
+
             } else {
                 
                 let todoName = editModalDiv.getElementsByTagName('form')[0].id;
@@ -187,7 +184,6 @@ const modal = (() => {
         titleInput.setAttribute('id', 'proj-form-title');
         submitBtn.setAttribute('id', 'proj-submit-btn');
 
-
         titleLegend.textContent = 'Project Title';
         submitBtn.textContent = 'Add Project';
         closeBtn.textContent = 'X';
@@ -201,7 +197,6 @@ const modal = (() => {
 
         projModalDiv.classList.add('modal');
         projModalDiv.classList.add('hidden');
-    
 
         closeBtn.classList.add('close-btn');
         submitBtn.classList.add('submit-btn');
@@ -250,10 +245,16 @@ const modal = (() => {
         deleteProjBtn.addEventListener('click', (e) => {
             e.preventDefault();
             let projName = editModalDiv.id;
-            localStorage.removeItem(projName);
-            let removeTab = document.getElementsByClassName('sidebar')[0].querySelector(`#${projName}`);
-            removeTab.parentNode.removeChild(removeTab);
-            content.displayCurrProject(JSON.parse(localStorage.getItem('Today')), JSON.parse(localStorage.getItem('Today')).todos);
+            if(JSON.parse(localStorage.getItem(projName)).defaultTab === false) {
+                localStorage.removeItem(projName);
+                let removeTab = document.getElementsByClassName('sidebar')[0].querySelector(`#${projName}`);
+                removeTab.parentNode.removeChild(removeTab);
+                content.displayCurrProject(JSON.parse(localStorage.getItem('Today')), JSON.parse(localStorage.getItem('Today')).todos);
+            } else {
+                alert('A default tab cannot be removed');
+                content.displayCurrProject(JSON.parse(localStorage.getItem(projName)), JSON.parse(localStorage.getItem(projName)).todos);
+            }
+            
             deleteModalDiv.classList.add('hidden');
         })
 
