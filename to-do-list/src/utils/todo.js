@@ -1,7 +1,7 @@
 import { isToday } from "date-fns";
 
-const todo = (title, description, dueDate, priority, notes, checked) => {
-    return {title, description, dueDate, priority, notes, checked}
+const todo = (title, description, dueDate, priority, notes, checked, projectTitle) => {
+    return {title, description, dueDate, priority, notes, checked, projectTitle}
 }
 
 const createTodoPrev = (project, todoItem) => {
@@ -60,14 +60,14 @@ const createTodoPrev = (project, todoItem) => {
 }
 
 const deleteTodo = (project, todoItem) => {
-    let projArray = JSON.parse(localStorage.getItem(project.title)).todos;
+    let projArray = JSON.parse(localStorage.getItem(todoItem.projectTitle)).todos;
 
     for(let i = 0; i < projArray.length; i++) {
         if(JSON.stringify(projArray[i]) === JSON.stringify(todoItem)) {
             projArray.splice(i,1);
-            let myProj = JSON.parse(localStorage.getItem(project.title));
+            let myProj = JSON.parse(localStorage.getItem(todoItem.projectTitle));
             myProj.todos = projArray;
-            localStorage.setItem(project.title, JSON.stringify(myProj));
+            localStorage.setItem(todoItem.projectTitle, JSON.stringify(myProj));
             break;
         }
     }
@@ -75,11 +75,6 @@ const deleteTodo = (project, todoItem) => {
     document.getElementById(`${todoItem.title}`).remove();
 
 }
-
-const addNewTodo = () => {
-    
-}
-
 
 
 export {todo, createTodoPrev, deleteTodo};

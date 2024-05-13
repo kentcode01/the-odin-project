@@ -60,9 +60,9 @@ const helpers = (() => {
         createProj(upcomingProj);
         let otherProj = project("Others");
         createProj(otherProj);
-        let task1 = todo("Wake up early", "Get up at 7am", format(new Date(2024, 4, 12), 'MM/dd/yyyy'), "high", "Make coffee once up", false, todayProj.title);
-        let task2 = todo("Submit Project", "Include everything in the module", format(new Date(2024, 4, 13), 'MM/dd/yyyy'), "low", "Be sure to share with team", false, todayProj.title);
-        let task3 = todo("Cook Dinner", "Making seafood spaghetti today", format(new Date(2024, 4, 12), 'MM/dd/yyyy'), "medium", "Buy from Krogers", true, upcomingProj.title);
+        let task1 = todo("Wake up early", "Get up at 7am", format(new Date(2024, 4, 12), 'MM/dd/yyyy'), "high", "Make coffee once up", false, otherProj.title);
+        let task2 = todo("Submit Project", "Include everything in the module", format(new Date(2024, 4, 13), 'MM/dd/yyyy'), "low", "Be sure to share with team", false, otherProj.title);
+        let task3 = todo("Cook Dinner", "Making seafood spaghetti today", format(new Date(2024, 4, 12), 'MM/dd/yyyy'), "medium", "Buy from Krogers", false, upcomingProj.title);
         addToProj(otherProj, task1);
         addToProj(otherProj, task2);
         addToProj(upcomingProj, task3);
