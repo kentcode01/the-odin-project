@@ -110,7 +110,7 @@ const modal = (() => {
             if(editModalDiv.classList.contains('create-todo')) {
                 
                 
-                let todoObj = todo('', '', '', '', '', '');
+                let todoObj = todo('','','','','',false, content.contentDiv.id);
                 let objList = JSON.parse(localStorage.getItem(`${projName}`)).todos;
                 let index = objList.length;
                 
@@ -119,7 +119,6 @@ const modal = (() => {
                 todoObj.dueDate = format(parse(formElement.querySelector('#date').value, 'yyyy-mm-dd', new Date()), 'mm/dd/yyyy');
                 todoObj.priority = formElement.querySelector('#priority').value;
                 todoObj.notes = formElement.querySelector('#notes').value;
-
                 objList.splice(index, 1, todoObj);
                 let myProj = JSON.parse(localStorage.getItem(`${projName}`));
                 myProj.todos = objList;
@@ -139,7 +138,7 @@ const modal = (() => {
                         break;
                     }
                 }
-            
+                
                 
                 todoObj.title = formElement.querySelector('#title').value;
                 todoObj.description = formElement.querySelector('#description').value;
@@ -147,10 +146,19 @@ const modal = (() => {
                 todoObj.priority = formElement.querySelector('#priority').value;
                 todoObj.notes = formElement.querySelector('#notes').value;
 
+                let originTodoList = JSON.parse(localStorage.getItem(todoObj.projectTitle)).todos;
+                let originIndex = originTodoList.findIndex(x => x.title === todoName);
+
+                originTodoList.splice(originIndex, 1, todoObj);
+                let originProj = JSON.parse(localStorage.getItem(todoObj.projectTitle));
+                originProj.todos = originTodoList;
+
                 objList.splice(index, 1, todoObj);
                 let myProj = JSON.parse(localStorage.getItem(`${projName}`));
                 myProj.todos = objList;
                 localStorage.setItem(projName, JSON.stringify(myProj));
+                localStorage.setItem(todoObj.projectTitle, JSON.stringify(originProj));
+                
             }
                 
             modal.editModalDiv.classList.add('hidden');

@@ -52,7 +52,12 @@ const helpers = (() => {
         });
     }
 
+    
+
     const addSampleData = () => {
+
+        localStorage.clear();
+
         let todayProj = project("Today", true);
         
         createProj(todayProj);
