@@ -148,16 +148,19 @@ const modal = (() => {
 
                 let originTodoList = JSON.parse(localStorage.getItem(todoObj.projectTitle)).todos;
                 let originIndex = originTodoList.findIndex(x => x.title === todoName);
-
-                originTodoList.splice(originIndex, 1, todoObj);
-                let originProj = JSON.parse(localStorage.getItem(todoObj.projectTitle));
-                originProj.todos = originTodoList;
-
+                
+                if(projName === 'Today') {
+                    originTodoList.splice(originIndex, 1, todoObj);
+                    let originProj = JSON.parse(localStorage.getItem(todoObj.projectTitle));
+                    originProj.todos = originTodoList;
+                    localStorage.setItem(todoObj.projectTitle, JSON.stringify(originProj));
+                }
+                
                 objList.splice(index, 1, todoObj);
                 let myProj = JSON.parse(localStorage.getItem(`${projName}`));
                 myProj.todos = objList;
                 localStorage.setItem(projName, JSON.stringify(myProj));
-                localStorage.setItem(todoObj.projectTitle, JSON.stringify(originProj));
+                
                 
             }
                 

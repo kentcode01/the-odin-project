@@ -2,6 +2,7 @@ import { todo, deleteTodo, createModalDiv } from "../utils/todo";
 import { project, createProj, addToProj } from "../utils/project";
 import { format, parse } from "date-fns";
 import { modal } from "../main/modal";
+import { content } from "../main/content";
 
 
 const helpers = (() => {
@@ -37,13 +38,25 @@ const helpers = (() => {
     }
 
     const addCheckListener = (proj, todoItem) => {
+        
         let todoDiv = document.getElementById(`${todoItem.title}`);
         let checkBox = todoDiv.querySelector('input[type=checkbox]');
         
         checkBox.addEventListener('click', () => {
-            let objList = JSON.parse(localStorage.getItem(`${proj.title}`)).todos;
-            let index = (JSON.parse(localStorage.getItem(`${proj.title}`)).todos).findIndex(id => JSON.stringify(id) === JSON.stringify(todoItem));
             todoItem.checked = checkBox.checked;
+
+            if(proj.title === 'Today') {
+                let originalProj = JSON.parse(localStorage.getItem(todoItem.projectTitle));
+                let originalList = originalProj.todos;
+                let originalIndex = originalList.findIndex(index => JSON.stringify(index) === JSON.stringify(todoItem));
+            
+                originalList.splice(originalIndex, 1, todoItem);
+                originalProj.todos = originalList;
+                localStorage.setItem(originalProj.title, JSON.stringify(originalProj));
+            }
+            let objList = JSON.parse(localStorage.getItem(`${proj.title}`)).todos;
+            let index = objList.findIndex(id => JSON.stringify(id) === JSON.stringify(todoItem));
+            
             todoDiv.classList.toggle('complete');
             objList.splice(index, 1, todoItem);
             proj.todos = objList;
