@@ -75,7 +75,36 @@ const content = (() => {
         
         projTitle.classList.add('proj-title');
         headerDiv.classList.add('proj-header-div');
+
+
         contentDiv.appendChild(headerDiv);
+        contentDiv.appendChild(orderByInput());
+    }
+
+    const orderByInput = () => {
+        let selectOptions = document.createElement('div');
+        let orderBySelect = document.createElement('select');
+        let orderByLabel = document.createElement('select');
+
+        orderByLabel.setAttribute('for', 'orderBy');
+        orderBySelect.setAttribute('id', 'orderBy');
+
+        let titleOption = document.createElement('option');
+        let dateOption = document.createElement('option');
+        let priorityOption = document.createElement('option');
+
+        titleOption.setAttribute('value', 'todo-title');
+        dateOption.setAttribute('value', 'dueDate-option');
+        priorityOption.setAttribute('value', 'priority-option');
+
+        orderBySelect.appendChild(titleOption);
+        orderBySelect.appendChild(dateOption);
+        orderBySelect.appendChild(priorityOption);
+
+        selectOptions.appendChild(orderByLabel);
+        selectOptions.appendChild(orderBySelect);
+
+        return selectOptions;
     }
 
     const createNavbar = () => {
@@ -120,6 +149,8 @@ const content = (() => {
 
         contentDiv.appendChild(navbarDiv);
     }
+
+    
 
     return {contentDiv, contentNavbar, clearContentDiv, createNavbar, displayTodos, displayCurrProject, displayAllTodos, generateTodayProject};
 })();
