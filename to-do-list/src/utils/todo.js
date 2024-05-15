@@ -7,8 +7,10 @@ const todo = (title, description, dueDate, priority, notes, checked, projectTitl
 const createTodoPrev = (project, todoItem) => {
     let todoObj = todo(todoItem.title, todoItem.description, todoItem.dueDate, todoItem.priority, todoItem.notes);
 
+    let toggleBtn = document.createElement('button');
     let markInput = document.createElement('input');
     let todoDiv = document.createElement('div');
+    let todoPrevDiv = document.createElement('div');
     let titleHead = document.createElement('h3');
     let dueDatePara = document.createElement('p');
     let priorityPara = document.createElement('p');
@@ -19,6 +21,27 @@ const createTodoPrev = (project, todoItem) => {
     let summaryDiv = document.createElement('div');
     let settingDiv = document.createElement('div');
 
+    let descriptDiv = document.createElement('div');
+    let descriptPara = document.createElement('div');
+    let notesPara = document.createElement('div');
+
+    descriptDiv.appendChild(descriptPara);
+    descriptDiv.appendChild(notesPara);
+
+    toggleBtn.addEventListener('click', () => {
+        descriptDiv.classList.toggle('hidden');
+        if(toggleBtn.classList.contains('hide-descript')) {
+            toggleBtn.classList.remove('hide-descript');
+            toggleBtn.classList.add('show-descript');
+        } else {
+            toggleBtn.classList.remove('show-descript');
+            toggleBtn.classList.add('hide-descript');
+        }
+            
+    });
+
+    descriptPara.textContent = 'Description: ' + todoItem.description;
+    notesPara.textContent = 'Notes: ' + todoItem.notes;
     titleHead.textContent = todoObj.title;
 
     let dateStr = todoObj.dueDate;
@@ -38,10 +61,17 @@ const createTodoPrev = (project, todoItem) => {
     summaryDiv.appendChild(priorityPara);
     settingDiv.appendChild(editBtn);
     settingDiv.appendChild(deleteBtn);
-    todoDiv.appendChild(titleDiv);
-    todoDiv.appendChild(summaryDiv);
-    todoDiv.appendChild(settingDiv);
+    todoPrevDiv.appendChild(toggleBtn);
+    todoPrevDiv.appendChild(titleDiv);
+    todoPrevDiv.appendChild(summaryDiv);
+    todoPrevDiv.appendChild(settingDiv);
+    todoDiv.appendChild(todoPrevDiv);
+    todoDiv.appendChild(descriptDiv);
 
+    toggleBtn.classList.add('toggle-btn');
+    toggleBtn.classList.add('hide-descript');
+    descriptDiv.classList.add('hidden');
+    descriptDiv.classList.add('descript-div');
     markInput.classList.add('checkbox');
     editBtn.classList.add('setting-btn');
     deleteBtn.classList.add('setting-btn');
@@ -50,7 +80,8 @@ const createTodoPrev = (project, todoItem) => {
     titleDiv.classList.add('preview-div');
     summaryDiv.classList.add('preview-div');
     settingDiv.classList.add('setting-div');
-    todoDiv.classList.add('todo-prev-div');
+    todoDiv.classList.add('todo-div');
+    todoPrevDiv.classList.add('todo-prev-div');
 
     markInput.checked = todoItem.checked;
     if(markInput.checked) todoDiv.classList.toggle('complete');

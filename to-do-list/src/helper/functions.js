@@ -43,19 +43,22 @@ const helpers = (() => {
         let checkBox = todoDiv.querySelector('input[type=checkbox]');
         
         checkBox.addEventListener('click', () => {
+           
             todoItem.checked = checkBox.checked;
+           
 
             if(proj.title === 'Today') {
                 let originalProj = JSON.parse(localStorage.getItem(todoItem.projectTitle));
                 let originalList = originalProj.todos;
-                let originalIndex = originalList.findIndex(index => JSON.stringify(index) === JSON.stringify(todoItem));
+                let originalIndex = originalList.findIndex(index => ((JSON.stringify(index.title)) === JSON.stringify(todoItem.title)) && (JSON.stringify(index.projectTitle) === JSON.stringify(todoItem.projectTitle)));
             
                 originalList.splice(originalIndex, 1, todoItem);
                 originalProj.todos = originalList;
                 localStorage.setItem(originalProj.title, JSON.stringify(originalProj));
             }
             let objList = JSON.parse(localStorage.getItem(`${proj.title}`)).todos;
-            let index = objList.findIndex(id => JSON.stringify(id) === JSON.stringify(todoItem));
+            let index = objList.findIndex(index => ((JSON.stringify(index.title)) === JSON.stringify(todoItem.title)) && (JSON.stringify(index.projectTitle) === JSON.stringify(todoItem.projectTitle)));
+        
             
             todoDiv.classList.toggle('complete');
             objList.splice(index, 1, todoItem);

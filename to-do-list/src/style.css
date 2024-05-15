@@ -145,6 +145,10 @@
     margin-right: 1rem;
 }
 
+.descript-div {
+    padding: 1.5rem;
+}
+
 .setting-btn {
 
     height: 1.5rem;
@@ -153,6 +157,20 @@
 
     background-repeat: repeat;
     border: none;
+}
+
+.toggle-btn {
+    padding: 1rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.toggle-btn.hide-descript {
+    background-image: url(./images/arrow-right.svg);
+}
+
+.toggle-btn.show-descript {
+    background-image: url(./images/arrow-down.svg);
 }
 
 .edit-btn {
@@ -195,7 +213,7 @@
 }
 
 .create-todo .modal-form-div {
-    background-color: rgb(49, 212, 84);
+    background-color: rgb(57, 212, 43);
 }
 
 
@@ -208,8 +226,6 @@
     align-items: center;
 }
 
-
-
 .form .close-btn {
     width: 2rem;
     text-align: center;
@@ -218,7 +234,10 @@
     border: none;
 }
 
-
+.toggle-btn {
+    background-color: white;
+    border: none;
+}
 
 .submit-btn {
     padding: 0.5rem;
