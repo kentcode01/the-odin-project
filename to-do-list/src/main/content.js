@@ -33,7 +33,7 @@ const content = (() => {
     const displayCurrProject = (project, todoObjList) => {
         clearContentDiv();
         
-        content.contentDiv.setAttribute('id', `${project.title}`);
+        contentDiv.setAttribute('id', `${project.title}`);
         modal.editModalDiv.setAttribute('id', `${project.title}`);
         
         createProjHeader(project.title);
@@ -156,7 +156,7 @@ const content = (() => {
 
         todoBtn.addEventListener('click', () => {
             let modalDiv = modal.editModalDiv;
-            let projName = content.contentDiv.id;
+            let projName = contentDiv.id;
             modalDiv.setAttribute('id', `${projName}`);
             modalDiv.querySelector('form').setAttribute('id',``);
             modalDiv.querySelector('#title').value = ``;

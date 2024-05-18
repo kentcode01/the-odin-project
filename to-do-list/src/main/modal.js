@@ -164,8 +164,8 @@ const modal = (() => {
                 
             }
                 
-            modal.editModalDiv.classList.add('hidden');
-            modal.editModalDiv.removeAttribute('id');
+            editModalDiv.classList.add('hidden');
+            editModalDiv.removeAttribute('id');
             editModalDiv.getElementsByTagName('form')[0].removeAttribute('id');
             
             content.displayCurrProject(JSON.parse(localStorage.getItem(projName)), JSON.parse(localStorage.getItem(projName)).todos);

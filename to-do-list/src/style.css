@@ -144,6 +144,7 @@
 
 .todo-prev-div.complete {
     text-decoration: line-through;
+    
 }
 
 .preview-div {
@@ -224,9 +225,27 @@
 }
 
 .create-todo .modal-form-div {
+    display: flex;
+
     background-color: rgb(57, 212, 43);
 }
 
+
+.form button {
+    margin: 1rem;
+}
+
+.form legend {
+    margin-top: 0.75rem;
+}
+
+.form input#notes {
+    height: 4rem;
+}
+
+.form input#description {
+    height: 4rem;
+}
 
 
 .form {
