@@ -21,10 +21,12 @@ modal.deleteProjModal();
 
 helpers.addSampleData();
 
-content.displayCurrProject(project("Today"), JSON.parse(localStorage.getItem('Today')).todos);
+content.displayCurrProject(project("Today"), JSON.parse(localStorage.getItem('Today')));
 
 modal.addSubmitListener();
 modal.closeModalListener(modal.editModalDiv);
 content.createNavbar();
 
+content.displayCurrProject('Today', JSON.parse(localStorage.getItem('Today')));
 content.generateTodayProject();
+

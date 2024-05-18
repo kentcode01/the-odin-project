@@ -32,8 +32,11 @@ const content = (() => {
 
     const displayCurrProject = (project, todoObjList) => {
         clearContentDiv();
+        
         content.contentDiv.setAttribute('id', `${project.title}`);
         modal.editModalDiv.setAttribute('id', `${project.title}`);
+        // helpers.orderByTitle();
+        
         createProjHeader(project.title);
         for(let i = 0; i < todoObjList.length; i++) {
             let currObj = todoObjList[i];
@@ -76,33 +79,49 @@ const content = (() => {
         projTitle.classList.add('proj-title');
         headerDiv.classList.add('proj-header-div');
 
+        headerDiv.appendChild(orderByInput());
 
         contentDiv.appendChild(headerDiv);
-        contentDiv.appendChild(orderByInput());
+        
     }
 
     const orderByInput = () => {
         let selectOptions = document.createElement('div');
         let orderBySelect = document.createElement('select');
-        let orderByLabel = document.createElement('select');
+        let orderByLabel = document.createElement('label');
 
         orderByLabel.setAttribute('for', 'orderBy');
         orderBySelect.setAttribute('id', 'orderBy');
 
+        let defaultOption = document.createElement('option');
         let titleOption = document.createElement('option');
         let dateOption = document.createElement('option');
         let priorityOption = document.createElement('option');
 
-        titleOption.setAttribute('value', 'todo-title');
+        defaultOption.setAttribute('value', 'default-option');
+        titleOption.setAttribute('value', 'title-option');
         dateOption.setAttribute('value', 'dueDate-option');
         priorityOption.setAttribute('value', 'priority-option');
 
+        defaultOption.textContent = '---';
+        titleOption.textContent = 'Title';
+        dateOption.textContent = 'Date';
+        priorityOption.textContent = 'Priority';
+
+        orderBySelect.addEventListener('change', (e) => {
+            e.preventDefault();
+            if(e.target.value === 'title-option') helpers.orderByTitle();
+        })
+
+        orderBySelect.appendChild(defaultOption);
         orderBySelect.appendChild(titleOption);
         orderBySelect.appendChild(dateOption);
         orderBySelect.appendChild(priorityOption);
 
         selectOptions.appendChild(orderByLabel);
         selectOptions.appendChild(orderBySelect);
+
+        selectOptions.setAttribute('id', 'order-options');
 
         return selectOptions;
     }

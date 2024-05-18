@@ -68,8 +68,6 @@ const helpers = (() => {
         });
     }
 
-    
-
     const addSampleData = () => {
 
         localStorage.clear();
@@ -84,13 +82,53 @@ const helpers = (() => {
         let task1 = todo("Wake up early", "Get up at 7am", format(new Date(2024, 4, 12), 'MM/dd/yyyy'), "high", "Make coffee once up", false, otherProj.title);
         let task2 = todo("Submit Project", "Include everything in the module", format(new Date(2024, 4, 13), 'MM/dd/yyyy'), "low", "Be sure to share with team", false, otherProj.title);
         let task3 = todo("Cook Dinner", "Making seafood spaghetti today", format(new Date(2024, 4, 12), 'MM/dd/yyyy'), "medium", "Buy from Krogers", false, upcomingProj.title);
+        let task4 = todo("Buy new phone", "Get an Android", format(new Date(2024, 6, 3), 'MM/dd/yyyy'), "medium", "Go to store", false, upcomingProj.title);
+        let task5 = todo("Finish Python project", "Submit to Github", format(new Date(2024, 5, 29), 'MM/dd/yyyy'), "high", "", false, upcomingProj.title);
+        let task6 = todo("Cook Lunch", "Make tacos", format(new Date(2024, 5, 17), 'MM/dd/yyyy'), "low", "Buy from Krogers", false, upcomingProj.title);
         addToProj(otherProj, task1);
         addToProj(otherProj, task2);
         addToProj(upcomingProj, task3);
+        addToProj(upcomingProj, task4);
+        addToProj(upcomingProj, task5);
+        addToProj(upcomingProj, task6);
+     
+        // orderByTitle();
 
     }
 
-    return {addDeleteListener, addModalListener, addCheckListener, addSampleData}
+    // functions for ordering todo items using bubble sort
+
+    const orderByTitle = () => {
+        if(content.contentDiv.id !== 'undefined') {
+            let swap;
+            let todoProj = JSON.parse(localStorage.getItem(content.contentDiv.id));
+            let todoList = todoProj.todos;
+            if(todoList.length > 1) {
+                for(let i = 0; i < todoList.length - 1; i++) {
+                    swap = false;
+                    for(let j = 0; j < todoList.length - i - 1; j++) {
+                        if((todoList[j].title).localeCompare(todoList[j + 1].title) !== -1) {
+                            let temp = todoList[j];
+                            todoList[j] = todoList[j + 1];
+                            todoList[j + 1] = temp;
+                            swap = true;
+                        }
+                    }
+                    if(swap === false) break;
+                }
+            }
+                
+
+            todoProj.todos = todoList;
+            localStorage.setItem(todoProj.title, JSON.stringify(todoProj));
+            content.displayCurrProject(todoProj.title, todoProj);
+        }
+            
+
+    }
+
+
+    return {addDeleteListener, addModalListener, addCheckListener, addSampleData, orderByTitle}
 
 })();
 
