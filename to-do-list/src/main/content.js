@@ -111,6 +111,8 @@ const content = (() => {
         orderBySelect.addEventListener('change', (e) => {
             e.preventDefault();
             if(e.target.value === 'title-option') helpers.orderByTitle();
+            if(e.target.value === 'dueDate-option') helpers.orderByDate();
+            if(e.target.value === 'priority-option') helpers.orderByPriority();
         })
 
         orderBySelect.appendChild(defaultOption);

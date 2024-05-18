@@ -1,6 +1,6 @@
 import { todo, deleteTodo, createModalDiv } from "../utils/todo";
 import { project, createProj, addToProj } from "../utils/project";
-import { format, parse } from "date-fns";
+import { format, parse, isAfter} from "date-fns";
 import { modal } from "../main/modal";
 import { content } from "../main/content";
 
@@ -123,12 +123,68 @@ const helpers = (() => {
             localStorage.setItem(todoProj.title, JSON.stringify(todoProj));
             content.displayCurrProject(todoProj.title, todoProj);
         }
-            
+        
+    }
 
+    const orderByDate = () => {
+        if(content.contentDiv.id !== 'undefined') {
+            let swap;
+            let todoProj = JSON.parse(localStorage.getItem(content.contentDiv.id));
+            let todoList = todoProj.todos;
+            if(todoList.length > 1) {
+                for(let i = 0; i < todoList.length - 1; i++) {
+                    swap = false;
+                    for(let j = 0; j < todoList.length - i - 1; j++) {
+                        if(isAfter((format(new Date(),todoList[j].dueDate)), (format(new Date(), todoList[j + 1].dueDate))) === true) {
+                            let temp = todoList[j];
+                            todoList[j] = todoList[j + 1];
+                            todoList[j + 1] = temp;
+                            swap = true;
+                        }
+                    }
+                    if(swap === false) break;
+                }
+            }
+                
+
+            todoProj.todos = todoList;
+            localStorage.setItem(todoProj.title, JSON.stringify(todoProj));
+            content.displayCurrProject(todoProj.title, todoProj);
+        }
+    }
+
+    const orderByPriority = () => {
+        if(content.contentDiv.id !== 'undefined') {
+
+            let priorityLvl = {low: 1, medium: 2, high: 3};
+
+            let swap;
+            let todoProj = JSON.parse(localStorage.getItem(content.contentDiv.id));
+            let todoList = todoProj.todos;
+            if(todoList.length > 1) {
+                for(let i = 0; i < todoList.length - 1; i++) {
+                    swap = false;
+                    for(let j = 0; j < todoList.length - i - 1; j++) {
+                        if(priorityLvl[todoList[j].priority] - priorityLvl[todoList[j + 1].priority] < 0) {
+                            let temp = todoList[j];
+                            todoList[j] = todoList[j + 1];
+                            todoList[j + 1] = temp;
+                            swap = true;
+                        }
+                    }
+                    if(swap === false) break;
+                }
+            }
+                
+
+            todoProj.todos = todoList;
+            localStorage.setItem(todoProj.title, JSON.stringify(todoProj));
+            content.displayCurrProject(todoProj.title, todoProj);
+        }
     }
 
 
-    return {addDeleteListener, addModalListener, addCheckListener, addSampleData, orderByTitle}
+    return {addDeleteListener, addModalListener, addCheckListener, addSampleData, orderByTitle, orderByDate, orderByPriority}
 
 })();
 
