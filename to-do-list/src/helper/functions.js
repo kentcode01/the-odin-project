@@ -91,8 +91,6 @@ const helpers = (() => {
         addToProj(upcomingProj, task4);
         addToProj(upcomingProj, task5);
         addToProj(upcomingProj, task6);
-     
-        // orderByTitle();
 
     }
 
@@ -121,7 +119,7 @@ const helpers = (() => {
 
             todoProj.todos = todoList;
             localStorage.setItem(todoProj.title, JSON.stringify(todoProj));
-            content.displayCurrProject(todoProj.title, todoProj);
+            content.displayCurrProject(todoProj, todoProj.todos);
         }
         
     }
@@ -149,7 +147,7 @@ const helpers = (() => {
 
             todoProj.todos = todoList;
             localStorage.setItem(todoProj.title, JSON.stringify(todoProj));
-            content.displayCurrProject(todoProj.title, todoProj);
+            content.displayCurrProject(todoProj, todoProj.todos);
         }
     }
 
@@ -179,7 +177,7 @@ const helpers = (() => {
 
             todoProj.todos = todoList;
             localStorage.setItem(todoProj.title, JSON.stringify(todoProj));
-            content.displayCurrProject(todoProj.title, todoProj);
+            content.displayCurrProject(todoProj, todoProj.todos);
         }
     }
 
