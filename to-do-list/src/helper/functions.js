@@ -118,8 +118,9 @@ const helpers = (() => {
                 
 
             todoProj.todos = todoList;
+            todoProj.orderBy = 'title-option';
             localStorage.setItem(todoProj.title, JSON.stringify(todoProj));
-            content.displayCurrProject(todoProj, todoProj.todos);
+            
         }
         
     }
@@ -146,8 +147,9 @@ const helpers = (() => {
                 
 
             todoProj.todos = todoList;
+            todoProj.orderBy = 'dueDate-option';
             localStorage.setItem(todoProj.title, JSON.stringify(todoProj));
-            content.displayCurrProject(todoProj, todoProj.todos);
+            
         }
     }
 
@@ -176,8 +178,9 @@ const helpers = (() => {
                 
 
             todoProj.todos = todoList;
+            todoProj.orderBy = 'priority-option';
             localStorage.setItem(todoProj.title, JSON.stringify(todoProj));
-            content.displayCurrProject(todoProj, todoProj.todos);
+            
         }
     }
 

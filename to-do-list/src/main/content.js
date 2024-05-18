@@ -12,7 +12,7 @@ const content = (() => {
     contentDiv.classList.add('content');
 
     const contentNavbar = document.createElement('div');
-
+    
     const displayTodos = (project, todoObj) => {
 
         let currDiv = createTodoPrev(project, todoObj);
@@ -35,13 +35,16 @@ const content = (() => {
         
         content.contentDiv.setAttribute('id', `${project.title}`);
         modal.editModalDiv.setAttribute('id', `${project.title}`);
-        // helpers.orderByTitle();
         
         createProjHeader(project.title);
         for(let i = 0; i < todoObjList.length; i++) {
             let currObj = todoObjList[i];
             displayTodos(project, currObj);
         }
+        if(contentDiv.id !== 'undefined') {
+            contentDiv.getElementsByClassName('proj-header-div')[0].querySelector('#orderBy').value = JSON.parse(localStorage.getItem(contentDiv.id)).orderBy;
+        }
+            
 
         createNavbar();
     }
@@ -78,7 +81,7 @@ const content = (() => {
         
         projTitle.classList.add('proj-title');
         headerDiv.classList.add('proj-header-div');
-
+       
         headerDiv.appendChild(orderByInput());
 
         contentDiv.appendChild(headerDiv);
@@ -87,6 +90,7 @@ const content = (() => {
 
     const orderByInput = () => {
         let selectOptions = document.createElement('div');
+
         let orderBySelect = document.createElement('select');
         let orderByLabel = document.createElement('label');
 
@@ -110,9 +114,19 @@ const content = (() => {
 
         orderBySelect.addEventListener('change', (e) => {
             e.preventDefault();
-            if(e.target.value === 'title-option') helpers.orderByTitle();
-            else if(e.target.value === 'dueDate-option') helpers.orderByDate();
-            else if(e.target.value === 'priority-option') helpers.orderByPriority();
+            if(e.target.value !== '---' || e.target.value !== 'undefined') {
+                if(e.target.value === 'title-option') {
+                    helpers.orderByTitle();
+                }
+                else if(e.target.value === 'dueDate-option') {
+                    helpers.orderByDate();
+                }
+                else if(e.target.value === 'priority-option') {
+                    helpers.orderByPriority();
+                }
+                displayCurrProject(JSON.parse(localStorage.getItem(contentDiv.id)), JSON.parse(localStorage.getItem(contentDiv.id)).todos);
+            }
+                
         })
 
         orderBySelect.appendChild(defaultOption);

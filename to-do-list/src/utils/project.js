@@ -1,11 +1,12 @@
 import '../style.css';
 import { sidebar } from "../main/sidebar";
 import { content } from '../main/content';
+import { helpers } from '../helper/functions';
 
-const project = (title, defaultTab = false) => {
+const project = (title, defaultTab = false, orderBy = '---') => {
 
     let todos = [];
-    return {title, todos, defaultTab};
+    return {title, todos, defaultTab, orderBy};
 }
 
 const createProj = (project) => {
@@ -26,6 +27,7 @@ const createProjTab = (project) => {
 
     projDiv.addEventListener('click', () => {
         if(project.title === 'Today') content.generateTodayProject();
+       
         content.displayCurrProject(project, JSON.parse(localStorage.getItem(project.title)).todos);
     });
 
