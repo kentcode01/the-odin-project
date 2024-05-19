@@ -212,13 +212,14 @@
 
 .modal-form-div {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     position: absolute;
     left: 50%;
     top: 40%;
     float: left;
     transform: translate(-50%, -50%);
-    width: 20rem;
+    width: 15rem;
     height: auto;
     padding: 2rem;
     background-color: rgb(255, 255, 255);
@@ -226,7 +227,6 @@
 
 .create-todo .modal-form-div {
     display: flex;
-
     background-color: rgb(57, 212, 43);
 }
 
@@ -239,25 +239,23 @@
     margin-top: 0.75rem;
 }
 
-.form input#notes {
-    height: 4rem;
-}
-
-.form input#description {
-    height: 4rem;
-}
-
-
 .form {
     display: flex;
     flex-direction: column;
-
     justify-content: center;
-    align-items: center;
+    align-items: left;
 }
 
-.form .close-btn {
-    width: 2rem;
+.form #date {
+    width: 8rem;
+}
+
+.form #priority {
+    width: 8rem;
+}
+
+.form button.close-btn {
+
     text-align: center;
     
     background-color: rgb(255, 255, 255);

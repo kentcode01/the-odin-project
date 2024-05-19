@@ -16,7 +16,7 @@ const modal = (() => {
         let titleInput = document.createElement('input');
         let formElement = document.createElement('form');
         let descriptLegend = document.createElement('legend');
-        let descriptInput = document.createElement('input');
+        let descriptText = document.createElement('textarea');
         let dateLegend = document.createElement('legend');
         let dateInput = document.createElement('input');
         let priorLegend = document.createElement('legend');
@@ -42,14 +42,13 @@ const modal = (() => {
         priorOptFour.textContent = '---';
 
         let notesLegend = document.createElement('legend');
-        let notesInput = document.createElement('input');
+        let notesText = document.createElement('textarea');
         let submitBtn = document.createElement('button');
         let closeBtn = document.createElement('button');
 
         titleInput.setAttribute('id', 'title');
         descriptLegend.setAttribute('for', 'description');
-        descriptInput.setAttribute('id', 'description');
-        descriptInput.setAttribute('type', 'text');
+        descriptText.setAttribute('id', 'description');
         dateLegend.setAttribute('for', 'date');
         dateInput.setAttribute('id', 'date');
         dateInput.setAttribute('type', 'date');
@@ -59,13 +58,12 @@ const modal = (() => {
         priorSelect.setAttribute('id', 'priority');
         priorSelect.setAttribute('name', 'priority');
         notesLegend.setAttribute('for', 'notes');
-        notesInput.setAttribute('type', 'text');
-        notesInput.setAttribute('id', 'notes');
+        notesText.setAttribute('id', 'notes');
 
         submitBtn.setAttribute('type', 'submit')
         closeBtn.classList.add('close-btn');
 
-        titleLegend.textContent = 'Title';
+        titleLegend.textContent = 'Title: ';
         descriptLegend.textContent = 'Description: ';
         dateLegend.textContent = 'Date: ';
         priorLegend.textContent = 'Priority: ';
@@ -74,19 +72,20 @@ const modal = (() => {
         closeBtn.textContent = 'X';
 
         editModalDiv.appendChild(formDiv);
-        formDiv.appendChild(formElement);
+        
 
-        formElement.appendChild(closeBtn);
+        formDiv.appendChild(closeBtn);
+        formDiv.appendChild(formElement);
         formElement.appendChild(titleLegend);
         formElement.appendChild(titleInput);
         formElement.appendChild(descriptLegend);
-        formElement.appendChild(descriptInput);
+        formElement.appendChild(descriptText);
         formElement.appendChild(dateLegend);
         formElement.appendChild(dateInput);
         formElement.appendChild(priorLegend);
         formElement.appendChild(priorSelect);
         formElement.appendChild(notesLegend);
-        formElement.appendChild(notesInput);
+        formElement.appendChild(notesText);
         formElement.appendChild(submitBtn);
 
         submitBtn.classList.add('submit-btn');
