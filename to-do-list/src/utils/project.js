@@ -3,6 +3,7 @@ import { sidebar } from "../main/sidebar";
 import { content } from '../main/content';
 import { helpers } from '../helper/functions';
 
+
 const project = (title, defaultTab = false, orderBy = '---') => {
 
     let todos = [];
@@ -27,6 +28,12 @@ const createProjTab = (project) => {
     projHead.classList.add('proj-tab-head');
     projDiv.classList.add('project-tab')
     projDiv.setAttribute('id', project.title);
+
+    if(project.defaultTab === true) {
+        projIcon.classList.add('default-icon');
+    } else {
+        projIcon.classList.add('normal-icon');
+    }
 
     projDiv.addEventListener('click', () => {
         if(project.title === 'Today') content.generateTodayProject();

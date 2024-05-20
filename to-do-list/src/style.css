@@ -40,6 +40,22 @@
     opacity: 0.6;
 }
 
+img.proj-tab-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.2rem; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.default-icon {
+    background-image: url(./images/star-outline.svg);   
+}
+
+.normal-icon {
+    background-image: url(./images/list-bulleted.svg);
+}
 
 /* selectors for content module */
 
@@ -57,11 +73,10 @@
 /* selector for project module */
 .project-tab {
     display: flex; 
-    flex-direction: column;
+    align-items: center;
     justify-items: center; 
     height: 2rem;
     padding: 0.2rem;
-    
 }
 
 .project-tab:hover {
