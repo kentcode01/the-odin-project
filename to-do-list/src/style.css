@@ -32,8 +32,14 @@
     border: none;
     margin: 0.25rem;
     background: url(./images/plus-sign.svg);
-    
+    background-repeat: none;
+    background-size: cover;
 }
+
+.sidebar #add-proj-btn:hover {
+    opacity: 0.6;
+}
+
 
 /* selectors for content module */
 
@@ -44,6 +50,8 @@
     position: relative;
     width: 80%;
     padding: 1rem;
+
+    background-color: rgb(226, 248, 248);
 }
 
 /* selector for project module */
@@ -64,12 +72,13 @@
 
 .proj-header-div {
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     height: 3.5rem;
     padding: 0.75rem;
     margin-bottom: 1rem;
     border-bottom: 0.25rem solid rgb(152, 146, 146);
+
+    background-color: rgb(255, 255, 255);
 }
 
 .proj-title {
@@ -131,11 +140,14 @@
 .todo-div {
     
     margin: 1.5rem;
+
+    background-color: rgb(255, 255, 255);
 }
 
 .todo-prev-div {
     display: flex;
     flex-wrap: wrap;
+    min-height: 0;
     justify-content: space-evenly;
     align-items: center;
     height: 3rem;
@@ -214,6 +226,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     position: absolute;
     left: 50%;
     top: 40%;
@@ -223,11 +236,12 @@
     height: auto;
     padding: 2rem;
     background-color: rgb(255, 255, 255);
+
+    border: 0.25rem solid rgb(203, 203, 203, 0.5);
 }
 
 .create-todo .modal-form-div {
     display: flex;
-    background-color: rgb(57, 212, 43);
 }
 
 
@@ -246,6 +260,10 @@
     align-items: left;
 }
 
+.form.add-proj-form {
+    align-items: center;
+}
+
 .form #date {
     width: 8rem;
 }
@@ -254,16 +272,47 @@
     width: 8rem;
 }
 
-.form button.close-btn {
+.close-btn {
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 1rem;
 
-    text-align: center;
-    
-    background-color: rgb(255, 255, 255);
     border: none;
+    background-color: rgba(255, 255, 255, 0.75);    
+
+}
+
+.delete-proj-div form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.delete-proj-div .delete-button {
+    width: 5rem;
+    height: 2rem;
+
+    font-weight: bold;
+    color: rgb(241, 234, 234);
+    border: none;
+    border-radius: 10%;
+    background-color: rgb(238, 75, 43);
+}
+
+.delete-proj-div .delete-button:hover {
+    
+    background-color: rgb(203, 52, 22);
+}
+
+.modal-form-div button.close-btn:hover {
+    background-color: rgb(238, 230, 230);
+    font-weight: bold;
+    border-radius: 50%;
 }
 
 .toggle-btn {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border: none;
 }
 

@@ -19,8 +19,11 @@ const createProjTab = (project) => {
     
     let projDiv = document.createElement('div');
     let projHead = document.createElement('p');
+    let projIcon = document.createElement('img');
+    projDiv.appendChild(projIcon);
     projDiv.appendChild(projHead);
     projHead.textContent = project.title;
+    projIcon.classList.add('proj-tab-icon');
     projHead.classList.add('proj-tab-head');
     projDiv.classList.add('project-tab')
     projDiv.setAttribute('id', project.title);

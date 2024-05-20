@@ -47,6 +47,7 @@ const modal = (() => {
         let closeBtn = document.createElement('button');
 
         titleInput.setAttribute('id', 'title');
+        titleInput.setAttribute('maxlength', '50');
         descriptLegend.setAttribute('for', 'description');
         descriptText.setAttribute('id', 'description');
         dateLegend.setAttribute('for', 'date');
@@ -212,6 +213,7 @@ const modal = (() => {
         submitBtn.classList.add('submit-btn');
         formDiv.classList.add('modal-form-div');
         formElement.classList.add('form');
+        formElement.classList.add('add-proj-form');
 
         closeModalListener(projModalDiv);
         makeProjListener();
@@ -272,6 +274,7 @@ const modal = (() => {
 
         deleteModalDiv.classList.add('modal');
         deleteModalDiv.classList.add('hidden');
+        deleteProjBtn.classList.add('delete-button');
         closeBtn.classList.add('close-btn');
         formDiv.classList.add('modal-form-div');
         formElement.classList.add('form');
